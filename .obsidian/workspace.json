@@ -1,0 +1,221 @@
+{
+  "main": {
+    "id": "d26b9fc6c4d4e914",
+    "type": "split",
+    "children": [
+      {
+        "id": "6b8f645dad17a812",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "56d45972cbe1a0aa",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "工作/项目/三星/网聊上线.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "e980414c89a1625b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "工作/项目/三星/网聊上线.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "dc46e7c9c800ffec",
+    "type": "split",
+    "children": [
+      {
+        "id": "012e7aa6dd0094bb",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "54d1f673f3754c78",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "30a9619635c8c2b1",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "abb23c65140f3299",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          },
+          {
+            "id": "97069f12a2901e18",
+            "type": "leaf",
+            "state": {
+              "type": "kanban",
+              "state": {
+                "file": "计划.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 211.49999618530273
+  },
+  "right": {
+    "id": "2558bb5d68aa95d3",
+    "type": "split",
+    "children": [
+      {
+        "id": "d4d4d37602adac58",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e597bd78a6ba1015",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "工作/项目/三星/网聊上线.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "6f8defcf14fee24b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "bdede934512fca66",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "工作/项目/三星/网聊上线.md"
+              }
+            }
+          },
+          {
+            "id": "2023893142968465",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "工作/项目/三星/网聊上线.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "eb65d89cbd59978f",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "markdown-importer:打开 Markdown 格式转换器": false,
+      "workspaces:管理工作区布局": false,
+      "publish:发布更改": false
+    }
+  },
+  "active": "e980414c89a1625b",
+  "lastOpenFiles": [
+    "工作/项目/晓策/环境信息.md",
+    "工作/es.md",
+    "工作/Mysql.md",
+    "工作/Ngs notes.md",
+    "MarkDown示例.md",
+    "计划.md",
+    "工作/项目/三星/网聊上线.md",
+    "计划/会议纪要1220.md",
+    "[ZO.md",
+    "工作/项目/晓策",
+    "工作/项目/三星",
+    "工作/项目",
+    "工作",
+    "计划/德高开发记录.md",
+    "计划/12.md",
+    "未命名 1.md",
+    "未命名 2.md",
+    "2023-12-22.md",
+    "未命名.canvas",
+    "计划/会议纪要12.8.md",
+    "计划/会议纪要9.8.md",
+    "计划/会议纪要8.17.md",
+    "计划/会议纪要6.20.md",
+    "计划/会议纪要6.30.md",
+    "计划/会议纪要6.21.md",
+    "会议纪要.md",
+    "代办.md",
+    "计划",
+    "三星质检.md",
+    "2023-06-19.md",
+    "obsidian help.md"
+  ]
+}
