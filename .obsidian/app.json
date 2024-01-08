@@ -1,5 +1,6 @@
 {
   "alwaysUpdateLinks": true,
   "vimMode": false,
-  "readableLineLength": false
+  "readableLineLength": false,
+  "trashOption": "local"
 }

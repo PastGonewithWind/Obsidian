@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "6b8f645dad17a812",
+        "id": "2f65b01a14a475d1",
         "type": "tabs",
         "children": [
           {
-            "id": "56d45972cbe1a0aa",
+            "id": "c323bcafb88f917e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "工作/Ngs notes.md",
+                "file": "工作/项目/晓策/BUG.md",
                 "mode": "source",
                 "source": false
               }
@@ -95,7 +95,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "工作/Ngs notes.md",
+                "file": "工作/项目/晓策/BUG.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +123,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "工作/Ngs notes.md"
+                "file": "工作/项目/晓策/BUG.md"
               }
             }
           },
@@ -133,7 +133,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "工作/Ngs notes.md",
+                "file": "工作/项目/晓策/BUG.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -171,19 +171,31 @@
       "publish:发布更改": false
     }
   },
-  "active": "56d45972cbe1a0aa",
+  "active": "c323bcafb88f917e",
   "lastOpenFiles": [
-    "工作/Mysql.md",
-    "工作/es.md",
-    "计划/会议纪要6.20.md",
-    "计划/德高开发记录.md",
-    "工作/项目/三星/网聊上线.md",
-    "MarkDown示例.md",
-    "README.md",
     "计划.md",
-    "工作/项目/晓策/环境信息.md",
-    "工作/Ngs notes.md",
+    "Pasted image 20240108130925.png",
+    "Pasted image 20240108130840.png",
+    "工作/项目/晓策/BUG.md",
+    "模板/会议记录.md",
+    "计划/德高开发记录.md",
+    "MarkDown示例.md",
     "计划/会议纪要1220.md",
+    "计划/会议纪要12.8.md",
+    "计划/会议纪要9.8.md",
+    "计划/会议纪要8.17.md",
+    "计划/会议纪要6.30.md",
+    "计划/会议纪要6.21.md",
+    "计划/会议纪要6.20.md",
+    "模板",
+    "工作/项目/晓策/环境信息.md",
+    "工作/es.md",
+    "README.md",
+    "工作/Ngs notes.md",
+    "工作/控件/命令.md",
+    "工作/项目/三星/网聊上线.md",
+    "工作/控件",
+    "工作/Mysql.md",
     "[ZO.md",
     "工作/项目/晓策",
     "工作/项目/三星",
@@ -194,16 +206,7 @@
     "未命名 2.md",
     "2023-12-22.md",
     "未命名.canvas",
-    "计划/会议纪要12.8.md",
-    "计划/会议纪要9.8.md",
-    "计划/会议纪要8.17.md",
-    "计划/会议纪要6.30.md",
-    "计划/会议纪要6.21.md",
     "会议纪要.md",
-    "代办.md",
-    "计划",
-    "三星质检.md",
-    "2023-06-19.md",
-    "obsidian help.md"
+    "计划"
   ]
 }
