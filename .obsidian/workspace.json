@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "工作/项目/晓策/环境信息.md",
+                "file": "工作/项目/三星/网聊上线.md",
                 "mode": "source",
                 "source": false
               }
@@ -95,7 +95,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "工作/项目/晓策/环境信息.md",
+                "file": "工作/项目/三星/网聊上线.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +123,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "工作/项目/晓策/环境信息.md"
+                "file": "工作/项目/三星/网聊上线.md"
               }
             }
           },
@@ -133,7 +133,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "工作/项目/晓策/环境信息.md",
+                "file": "工作/项目/三星/网聊上线.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -173,14 +173,17 @@
   },
   "active": "c323bcafb88f917e",
   "lastOpenFiles": [
+    "工作/控件/命令.md",
+    "工作/项目/晓策/环境信息.md",
+    "工作/es.md",
+    "工作/Mysql.md",
+    "工作/Ngs notes.md",
+    "工作/项目/晓策/BUG.md",
+    "计划.md",
     "附件/Pasted image 20240108130925.png",
     "附件/Pasted image 20240108130840.png",
-    "工作/项目/晓策/BUG.md",
-    "工作/项目/晓策/环境信息.md",
-    "工作/控件/命令.md",
     "MarkDown示例.md",
     "模板/会议记录.md",
-    "计划.md",
     "README.md",
     "计划/会议纪要8.17.md",
     "计划/会议纪要6.20.md",
@@ -193,11 +196,8 @@
     "计划/会议纪要6.30.md",
     "计划/会议纪要6.21.md",
     "模板",
-    "工作/es.md",
-    "工作/Ngs notes.md",
     "工作/项目/三星/网聊上线.md",
     "工作/控件",
-    "工作/Mysql.md",
     "[ZO.md",
     "工作/项目/晓策",
     "工作/项目/三星",
