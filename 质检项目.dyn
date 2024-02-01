@@ -1,0 +1,2538 @@
+{
+	"createdBy": "999999",
+	"createdTime": "2023-06-16 15:05:25",
+	"modifiedBy": "999999",
+	"modifiedTime": "2023-07-04 15:49:35",
+	"id": "147585176223360",
+	"alias": "XQ0PAV",
+	"name": "质检项目",
+	"type": 0,
+	"folderId": "147547897249408",
+	"index_": 0,
+	"content": {
+		"pages": {
+			"EFNCQH": {
+				"name": "子页面",
+				"id": "EFNCQH"
+			},
+			"STARTY": {
+				"name": "首页"
+			}
+		},
+		"functions": {},
+		"cmds": {
+			"extend": {
+				"search": {
+					"name": "查询业务分类",
+					"pid": "55f3983d-7259-4dd9-9edc-2308d5a3b201",
+					"id": "search",
+					"items": [
+						{
+							"type": "db",
+							"exp": "",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [],
+										"method": "query",
+										"sql": "68439d88-6999-47e8-9b8d-b76d39d7b49d"
+									}
+								},
+								"binds": [
+									{
+										"t": "var.qa_business"
+									}
+								],
+								"sub": "statement"
+							},
+							"desc": ""
+						}
+					]
+				},
+				"select": {
+					"name": "选择业务",
+					"pid": "5a059a94-333c-4a64-8f3e-d1741824bae0",
+					"id": "select",
+					"items": [
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "out('R.EVENT',R.EVENT.ROWDATA)\n\n\nR.var.business_name = R.EVENT.ROWDATA.business_name\nR.var.business_id  =R.EVENT.ROWDATA.business_id\n\ncmd('item_search')"
+							},
+							"desc": ""
+						},
+						{
+							"type": "db",
+							"exp": "0",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [
+											"var.business_id"
+										],
+										"method": "query",
+										"sql": "23067250-74a7-4df2-9902-9e076783f740"
+									}
+								},
+								"binds": [
+									{
+										"t": "var.qa_items"
+									}
+								],
+								"sub": "statement"
+							},
+							"desc": ""
+						}
+					]
+				},
+				"getitems": {
+					"name": "获取 item的对象",
+					"pid": "5a059a94-333c-4a64-8f3e-d1741824bae0",
+					"id": "getitems",
+					"items": [
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "R.var.items_element = R.EVENT.ROWDATA\n\n\n"
+							},
+							"desc": ""
+						}
+					]
+				},
+				"commonly": {
+					"name": "打开常用语模组",
+					"pid": "46a8d1f4-adfb-4cd8-967f-e5f672c367b6",
+					"id": "commonly",
+					"items": [
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "out('触发了吗！')\n\nModule.open('AVIDIE', {\n    title:\"常用语选择\",\n    icon:\"cryptocurrency-color:ella\",\n    type:'layer',\n    clickToHide:true,\n    parameters:{\n      UID:1\n    },\n    callback: function(data) {  \n      out('返回值：',data)\n    }\n})\n"
+							},
+							"desc": ""
+						}
+					]
+				},
+				"hotkeys": {
+					"name": "快捷键设置",
+					"pid": "46a8d1f4-adfb-4cd8-967f-e5f672c367b6",
+					"id": "hotkeys",
+					"items": [
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "hotkey('ctrl+1', 'commonly')"
+							},
+							"desc": ""
+						}
+					]
+				},
+				"addbusi": {
+					"name": "添加业务",
+					"pid": "55f3983d-7259-4dd9-9edc-2308d5a3b201",
+					"id": "addbusi",
+					"items": [
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "out('R.R.var.qa_obj',R.var.qa_obj)\n\n\nR.ID = R.var.qa_obj.code;\nR.NAME = R.var.qa_obj.name\nR.DESC = R.var.qa_obj.desc\nR.TYPE=R.var.qa_obj.type;\nR.NO = 1\n\nc('c61').state(0)"
+							},
+							"desc": ""
+						},
+						{
+							"type": "db",
+							"exp": "",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [
+											"ID",
+											"NAME",
+											"DESC",
+											"TYPE",
+											"NO"
+										],
+										"method": "query",
+										"sql": "10b72838-0d2d-4b9b-9802-ec9436b628c0"
+									}
+								},
+								"binds": [
+									{
+										"t": "AA"
+									}
+								],
+								"sub": "statement"
+							},
+							"desc": ""
+						},
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "out('成功了没',R.AA)\n\nif(R.AA)\n{\n  message('添加成功')\n  cmd('search')\n}\nelse\n{\n  message('添加失败','error')\n}"
+							},
+							"desc": ""
+						}
+					]
+				},
+				"item_search": {
+					"name": "项目查询",
+					"pid": "5a059a94-333c-4a64-8f3e-d1741824bae0",
+					"id": "item_search",
+					"items": [
+						{
+							"type": "db",
+							"exp": "",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [
+											"var.business_id"
+										],
+										"method": "query",
+										"sql": "42db0491-f1eb-4565-8936-18f3894a93eb"
+									}
+								},
+								"binds": [
+									{
+										"t": "var.qa_items"
+									}
+								],
+								"sub": "statement"
+							},
+							"desc": ""
+						}
+					]
+				},
+				"rules": {
+					"name": "打开质检规则",
+					"pid": "d16a9d46-30c8-4d48-884d-e7b8bd9ca564",
+					"id": "rules",
+					"items": [
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "toSubPage('EFNCQH')\n\n\nawait cmd('getitems')"
+							},
+							"desc": ""
+						}
+					]
+				},
+				"additems": {
+					"name": "添加质检项",
+					"pid": "5a059a94-333c-4a64-8f3e-d1741824bae0",
+					"id": "additems",
+					"items": [
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "out('R.var.item_obj',R.var.item_obj)\n\nR.BID= R.var.item_obj.business_id;\nR.BNAME= R.var.item_obj.business_name;\nR.ID = R.var.item_obj.code;\nR.NAME = R.var.item_obj.name\nR.DESC = R.var.item_obj.desc\nR.FLAG=R.var.item_obj.flag;\nR.PONIT=R.var.item_obj.point;\nR.NO = R.var.item_obj.no\nR.TYPE = R.var.item_obj.type\n\nc('c72').state(0)"
+							},
+							"desc": ""
+						},
+						{
+							"type": "db",
+							"exp": "",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [
+											"BID",
+											"BNAME",
+											"ID",
+											"NAME",
+											"PONIT",
+											"NO",
+											"FLAG",
+											"TYPE"
+										],
+										"method": "query",
+										"sql": "0fdd9752-2d21-403b-80b5-65e2218511da"
+									}
+								},
+								"binds": [
+									{
+										"t": "AA"
+									}
+								],
+								"sub": "statement"
+							},
+							"desc": ""
+						},
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "out('成功了没',R.AA)\n\nif(R.AA)\n{\n  message('添加成功！！')\n  cmd('item_search')\n}\nelse\n{\n  message('添加失败了！','error')\n}"
+							},
+							"desc": ""
+						}
+					]
+				}
+			},
+			"internal": {
+				"load": {
+					"name": "加载时（唯一）",
+					"id": "load",
+					"items": [
+						{
+							"type": "script",
+							"exp": "0",
+							"content": {
+								"resource": {},
+								"script": "R.var.qa_items=[\n  {\"CODE\":\"NUM001\",\"NAME\":\"服务禁语\"},\n  {\"CODE\":\"NUM002\",\"NAME\":\"服务规范\"},\n  {\"CODE\":\"NUM003\",\"NAME\":\"业务指引\"},\n  {\"CODE\":\"NUM004\",\"NAME\":\"风险规避\"},\n  {\"CODE\":\"NUM005\",\"NAME\":\"开场白\"},\n  {\"CODE\":\"NUM006\",\"NAME\":\"结束语\"}\n]"
+							},
+							"desc": ""
+						},
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "cmd('search')\ncmd('hotkeys')"
+							},
+							"desc": ""
+						},
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "var configlist = localStorage.group;\nif (configlist) {\n  var list = JSON.parse(configlist); // 字符串转数组\n  R.var.QA_GROUP = list.a;\n} else {\n  R.var.QA_GROUP = [{\"rules\":[{}]}]\n}"
+							},
+							"desc": ""
+						}
+					]
+				}
+			},
+			"folder": {
+				"f779ec27-c08b-4395-b1e6-f81fa79ce20d": {
+					"name": "根目录"
+				},
+				"55f3983d-7259-4dd9-9edc-2308d5a3b201": {
+					"name": "业务分类",
+					"pid": "f779ec27-c08b-4395-b1e6-f81fa79ce20d"
+				},
+				"5a059a94-333c-4a64-8f3e-d1741824bae0": {
+					"name": "质检项目分类",
+					"pid": "f779ec27-c08b-4395-b1e6-f81fa79ce20d"
+				},
+				"46a8d1f4-adfb-4cd8-967f-e5f672c367b6": {
+					"name": "快捷键",
+					"pid": "f779ec27-c08b-4395-b1e6-f81fa79ce20d"
+				},
+				"d16a9d46-30c8-4d48-884d-e7b8bd9ca564": {
+					"name": "自动化规则",
+					"pid": "f779ec27-c08b-4395-b1e6-f81fa79ce20d"
+				}
+			}
+		},
+		"increment": 115,
+		"language": "zh_CN",
+		"styles": {
+			"height": "100%"
+		},
+		"properties": {
+			"var": {
+				"business_name": {
+					"t": 3
+				},
+				"__comp_data__": {
+					"t": 4,
+					"v": ""
+				},
+				"title1": {
+					"t": 3
+				},
+				"qa_items": {
+					"t": 4
+				},
+				"title2": {
+					"t": 3
+				},
+				"logical": {
+					"t": 3,
+					"v": "and"
+				},
+				"QA_GROUP": {
+					"t": 4,
+					"v": "[{\"rules\":[{}]}]"
+				},
+				"items_element": {
+					"t": 6
+				},
+				"business_id": {
+					"t": 3
+				},
+				"qa_comment": {
+					"t": 3
+				},
+				"qa_obj": {
+					"t": 6
+				},
+				"item_obj": {
+					"t": 6
+				},
+				"qa_business": {
+					"t": 4
+				}
+			}
+		}
+	},
+	"i18n": {},
+	"pages": {
+		"EFNCQH": {
+			"ctls": [
+				{
+					"ctls": [
+						{
+							"ctls": [
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Icon",
+											"alias": "",
+											"id": "C84",
+											"props": {
+												"antd": {
+													"size": "20",
+													"color": "#ffffff",
+													"icon": "mdi:ornament"
+												},
+												"extend": {},
+												"general": {},
+												"styles": {},
+												"local": {
+													"clazzs": [
+														"link-button"
+													]
+												}
+											}
+										},
+										{
+											"cmds": {},
+											"name": "Label",
+											"id": "C85",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"margin": "4px",
+													"color": "#ffffff",
+													"fontWeight": 500
+												},
+												"local": {
+													"res": "业务名称：",
+													"styles": {}
+												}
+											}
+										},
+										{
+											"cmds": {},
+											"name": "Label",
+											"alias": "",
+											"id": "C86",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {
+													"dataProp": "var.business_name"
+												},
+												"styles": {
+													"margin": "4px",
+													"color": "#ffffff",
+													"fontWeight": 500
+												},
+												"local": {
+													"res": "标签"
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C83",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {
+											"padding": "2px 16px",
+											"margin": "4px",
+											"backgroundColor": "#2d557c",
+											"display": "flex"
+										},
+										"local": {}
+									}
+								},
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Icon",
+											"alias": "",
+											"id": "C88",
+											"props": {
+												"antd": {
+													"size": "20",
+													"color": "#ffffff",
+													"icon": "mdi:scoreboard-outline"
+												},
+												"extend": {},
+												"general": {},
+												"styles": {},
+												"local": {
+													"clazzs": [
+														"link-button"
+													]
+												}
+											}
+										},
+										{
+											"cmds": {},
+											"name": "Label",
+											"id": "C89",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"margin": "4px",
+													"color": "#ffffff"
+												},
+												"local": {
+													"res": "质检项：",
+													"styles": {}
+												}
+											}
+										},
+										{
+											"cmds": {},
+											"name": "Label",
+											"alias": "",
+											"id": "C90",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {
+													"dataProp": "${R.var.items_element.item_name}"
+												},
+												"styles": {
+													"margin": "4px",
+													"color": "#ffffff"
+												},
+												"local": {
+													"res": "标签"
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C87",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {
+											"padding": "2px 16px",
+											"margin": "4px",
+											"backgroundColor": "#9d6fd3",
+											"display": "flex"
+										},
+										"local": {}
+									}
+								},
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Icon",
+											"alias": "",
+											"id": "C35",
+											"props": {
+												"antd": {
+													"size": "20",
+													"color": "#ffffff",
+													"icon": "mdi:ornament"
+												},
+												"extend": {},
+												"general": {},
+												"styles": {},
+												"local": {
+													"clazzs": [
+														"link-button"
+													]
+												}
+											}
+										},
+										{
+											"cmds": {},
+											"name": "Label",
+											"id": "C36",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"margin": "4px",
+													"color": "#ffffff"
+												},
+												"local": {
+													"res": "项目描述：",
+													"styles": {}
+												}
+											}
+										},
+										{
+											"cmds": {},
+											"name": "Label",
+											"alias": "",
+											"id": "C37",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {
+													"dataProp": "${R.var.items_element.comments}"
+												},
+												"styles": {
+													"margin": "4px",
+													"color": "#ffffff"
+												},
+												"local": {
+													"res": "标签"
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C34",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {
+											"padding": "2px 16px",
+											"margin": "4px",
+											"backgroundColor": "#66d291",
+											"display": "flex"
+										},
+										"local": {}
+									}
+								},
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Icon",
+											"alias": "",
+											"id": "C31",
+											"props": {
+												"antd": {
+													"size": "20",
+													"color": "#ffffff",
+													"icon": "ant-design:box-plot-twotone"
+												},
+												"extend": {},
+												"general": {},
+												"styles": {},
+												"local": {
+													"clazzs": [
+														"link-button"
+													]
+												}
+											}
+										},
+										{
+											"cmds": {},
+											"name": "Label",
+											"id": "C32",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"margin": "4px",
+													"color": "#ffffff"
+												},
+												"local": {
+													"res": "模型类型：",
+													"styles": {}
+												}
+											}
+										},
+										{
+											"cmds": {},
+											"name": "Label",
+											"alias": "",
+											"id": "C33",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"margin": "4px",
+													"color": "#ffffff"
+												},
+												"local": {
+													"res": "加分项"
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C30",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {
+											"padding": "2px 16px",
+											"margin": "4px",
+											"backgroundColor": "#e67f3b",
+											"display": "flex"
+										},
+										"local": {}
+									}
+								},
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Icon",
+											"alias": "",
+											"id": "C102",
+											"props": {
+												"antd": {
+													"size": "20",
+													"color": "#ffffff",
+													"icon": "mdi:ev-plug-type2"
+												},
+												"extend": {},
+												"general": {},
+												"styles": {},
+												"local": {
+													"clazzs": [
+														"link-button"
+													]
+												}
+											}
+										},
+										{
+											"cmds": {},
+											"name": "Label",
+											"id": "C103",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"margin": "4px",
+													"color": "#ffffff"
+												},
+												"local": {
+													"res": "模型分数：",
+													"styles": {}
+												}
+											}
+										},
+										{
+											"cmds": {},
+											"name": "Label",
+											"alias": "",
+											"id": "C104",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {
+													"dataProp": "${R.var.items_element.default_score}"
+												},
+												"styles": {
+													"margin": "4px",
+													"color": "#ffffff"
+												},
+												"local": {
+													"res": "标签"
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C101",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {
+											"padding": "2px 16px",
+											"margin": "4px",
+											"backgroundColor": "#d65341",
+											"display": "flex"
+										},
+										"local": {}
+									}
+								},
+								{
+									"ctls": [],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C100",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {
+											"flex": "1"
+										},
+										"local": {}
+									}
+								}
+							],
+							"cmds": {},
+							"name": "Div",
+							"alias": "",
+							"id": "C82",
+							"props": {
+								"antd": {},
+								"extend": {},
+								"general": {},
+								"styles": {
+									"margin": "8px",
+									"alignItems": "center",
+									"flexDirection": "row",
+									"display": "flex",
+									"height": "auto"
+								},
+								"local": {}
+							}
+						},
+						{
+							"ctls": [
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Label",
+											"alias": "",
+											"id": "C51",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {},
+												"local": {
+													"defaultSnippetsClass": "main",
+													"res": "规则明细："
+												}
+											}
+										},
+										{
+											"cmds": {
+												"click": {
+													"name": "click",
+													"items": [
+														{
+															"type": "script",
+															"exp": "",
+															"content": {
+																"resource": {},
+																"script": "R.var.logical = 'or'"
+															},
+															"desc": ""
+														}
+													]
+												}
+											},
+											"name": "Label",
+											"alias": "",
+											"id": "C110",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"color": "#05a045",
+													"fontWeight": 500
+												},
+												"local": {
+													"defaultSnippetsClass": "main",
+													"res": "且",
+													"stateExpression": "R.var.logical == 'and'",
+													"styles": {
+														"cursor": "pointer"
+													}
+												}
+											}
+										},
+										{
+											"cmds": {
+												"click": {
+													"name": "click",
+													"items": [
+														{
+															"type": "script",
+															"exp": "",
+															"content": {
+																"resource": {},
+																"script": "R.var.logical = 'and'"
+															},
+															"desc": ""
+														}
+													]
+												}
+											},
+											"name": "Label",
+											"alias": "",
+											"id": "C109",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"color": "#f67c01",
+													"fontWeight": 500
+												},
+												"local": {
+													"defaultSnippetsClass": "main",
+													"res": "或",
+													"stateExpression": "R.var.logical == 'or'",
+													"styles": {
+														"cursor": "pointer"
+													}
+												}
+											}
+										},
+										{
+											"ctls": [],
+											"cmds": {},
+											"name": "Div",
+											"alias": "",
+											"id": "C56",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"flex": "1"
+												},
+												"local": {}
+											}
+										},
+										{
+											"cmds": {
+												"click": {
+													"name": "click",
+													"items": [
+														{
+															"type": "script",
+															"exp": "",
+															"content": {
+																"resource": {},
+																"script": "toSubPage('STARTY')"
+															},
+															"desc": ""
+														}
+													]
+												}
+											},
+											"name": "Button",
+											"alias": "",
+											"id": "C60",
+											"props": {
+												"antd": {
+													"shape": "default",
+													"size": "large"
+												},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"float": "right"
+												},
+												"local": {
+													"icon": "ant-design:backward-outlined",
+													"themeType": "link",
+													"label": "返回",
+													"colorType": "error"
+												}
+											}
+										},
+										{
+											"cmds": {
+												"click": {
+													"name": "click",
+													"items": [
+														{
+															"type": "script",
+															"exp": "",
+															"content": {
+																"resource": {},
+																"script": "message('保存成功')\n\nout('看下这个变量是什么值',R.var.QA_GROUP)\n\nvar configlist={}\nconfiglist.a= R.var.QA_GROUP\n\nlocalStorage.setItem('group',JSON.stringify(configlist)); "
+															},
+															"desc": ""
+														}
+													]
+												}
+											},
+											"name": "Icon",
+											"alias": "",
+											"id": "C107",
+											"props": {
+												"antd": {
+													"size": 32,
+													"color": "#1f87e8",
+													"icon": "ant-design:save-filled"
+												},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"margin": "0 8px"
+												},
+												"local": {
+													"clazzs": [
+														"link-button"
+													],
+													"tooltip": {
+														"label": "添加新规则",
+														"placement": ""
+													},
+													"suffix": "保存"
+												}
+											}
+										},
+										{
+											"cmds": {
+												"click": {
+													"name": "click",
+													"items": [
+														{
+															"type": "script",
+															"exp": "",
+															"content": {
+																"resource": {},
+																"script": "let  keys = {'code':''}\n\nlet id = await id6({\n  tableName: 'QA_ITEMS',\n  fieldName: 'item_id'\n});\n\nkeys.code = id\n\nkeys.rules=[{}]\n\n\nR.var.QA_GROUP.push(keys)"
+															},
+															"desc": ""
+														}
+													]
+												}
+											},
+											"name": "Icon",
+											"alias": "",
+											"id": "C55",
+											"props": {
+												"antd": {
+													"size": 32,
+													"color": "#05a045",
+													"icon": "ant-design:plus-circle-filled"
+												},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"margin": "0 8px"
+												},
+												"local": {
+													"clazzs": [
+														"link-button"
+													],
+													"tooltip": {
+														"label": "添加新规则",
+														"placement": ""
+													}
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C50",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {
+											"display": "flex"
+										},
+										"local": {}
+									}
+								},
+								{
+									"ctls": [
+										{
+											"ctls": [
+												{
+													"ctls": [
+														{
+															"cmds": {
+																"click": {
+																	"name": "click",
+																	"items": [
+																		{
+																			"type": "script",
+																			"exp": "",
+																			"content": {
+																				"resource": {},
+																				"script": "console.log('看下当前数组',R.var.QA_GROUP)\nR.var.QA_GROUP[R.EVENT.ROW].logical = 'or'"
+																			},
+																			"desc": ""
+																		}
+																	]
+																}
+															},
+															"name": "Label",
+															"alias": "",
+															"id": "C112",
+															"props": {
+																"antd": {},
+																"extend": {},
+																"general": {},
+																"styles": {
+																	"color": "#05a045",
+																	"fontWeight": 400
+																},
+																"local": {
+																	"defaultSnippetsClass": "sub",
+																	"res": "且",
+																	"stateExpression": "R.EVENT.ROWDATA.logical == 'and'",
+																	"styles": {
+																		"cursor": "pointer"
+																	}
+																}
+															}
+														},
+														{
+															"cmds": {
+																"click": {
+																	"name": "click",
+																	"items": [
+																		{
+																			"type": "script",
+																			"exp": "",
+																			"content": {
+																				"resource": {},
+																				"script": "R.var.QA_GROUP[R.EVENT.ROW].logical = 'and'"
+																			},
+																			"desc": ""
+																		}
+																	]
+																}
+															},
+															"name": "Label",
+															"alias": "",
+															"id": "C113",
+															"props": {
+																"antd": {},
+																"extend": {},
+																"general": {},
+																"styles": {
+																	"color": "#f67c01",
+																	"fontWeight": 400
+																},
+																"local": {
+																	"defaultSnippetsClass": "sub",
+																	"res": "或",
+																	"stateExpression": "R.EVENT.ROWDATA.logical == 'or'",
+																	"styles": {
+																		"cursor": "pointer"
+																	}
+																}
+															}
+														},
+														{
+															"ctls": [],
+															"cmds": {},
+															"name": "Div",
+															"alias": "",
+															"id": "C114",
+															"props": {
+																"antd": {},
+																"extend": {},
+																"general": {},
+																"styles": {
+																	"flex": "1"
+																},
+																"local": {}
+															}
+														},
+														{
+															"cmds": {
+																"click": {
+																	"name": "click",
+																	"items": [
+																		{
+																			"type": "script",
+																			"exp": "",
+																			"content": {
+																				"resource": {},
+																				"script": "out('R.EVENT.ROW看下当前是哪一行',R.EVENT.ROW)\n\n let  abc  = R.var.QA_GROUP.splice(R.EVENT.ROW,1)"
+																			},
+																			"desc": ""
+																		}
+																	]
+																}
+															},
+															"name": "Icon",
+															"alias": "",
+															"id": "C48",
+															"props": {
+																"antd": {
+																	"size": 20,
+																	"color": "#d81b43",
+																	"icon": "ant-design:close-circle-filled"
+																},
+																"extend": {},
+																"general": {},
+																"styles": {
+																	"float": "right"
+																},
+																"local": {
+																	"clazzs": [
+																		"link-button"
+																	],
+																	"tooltip": {
+																		"label": "移除",
+																		"placement": ""
+																	}
+																}
+															}
+														}
+													],
+													"cmds": {},
+													"name": "Div",
+													"alias": "",
+													"id": "C111",
+													"props": {
+														"antd": {},
+														"extend": {},
+														"general": {},
+														"styles": {
+															"padding": "0 10px",
+															"alignItems": "center",
+															"flexDirection": "row",
+															"display": "flex",
+															"height": "auto"
+														},
+														"local": {}
+													}
+												},
+												{
+													"cmds": {},
+													"name": "Component",
+													"alias": "",
+													"id": "C49",
+													"props": {
+														"antd": {},
+														"extend": {},
+														"general": {
+															"dataProp": "#rules"
+														},
+														"styles": {
+															"margin": "4px 16px 16px 16px"
+														},
+														"local": {
+															"com": "2cec93b6-3a41-4937-b959-cd4abdcfa1ee"
+														}
+													}
+												}
+											],
+											"cmds": {},
+											"name": "Div",
+											"alias": "",
+											"id": "C47",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"border": "1px dashed #4cb050",
+													"margin": "8px 0"
+												},
+												"local": {}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Xitem",
+									"alias": "",
+									"id": "C46",
+									"props": {
+										"antd": {
+											"itemLayout": "vertical"
+										},
+										"extend": {},
+										"general": {
+											"dataProp": "var.QA_GROUP"
+										},
+										"styles": {
+											"width": "100%",
+											"height": "auto"
+										},
+										"local": {
+											"showDividing": false,
+											"key": "code"
+										}
+									}
+								},
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Label",
+											"alias": "",
+											"id": "C54",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {},
+												"local": {
+													"defaultSnippetsClass": "main",
+													"res": "规则说明："
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C53",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {},
+										"local": {}
+									}
+								},
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Textarea",
+											"alias": "",
+											"id": "C58",
+											"props": {
+												"antd": {
+													"showCount": true,
+													"bordered": true,
+													"placeholder": "无规则",
+													"allowClear": true
+												},
+												"extend": {},
+												"general": {
+													"dataProp": "var.qa_comment"
+												},
+												"styles": {},
+												"local": {}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C57",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {},
+										"local": {}
+									}
+								}
+							],
+							"cmds": {},
+							"name": "Div",
+							"alias": "",
+							"id": "C45",
+							"props": {
+								"antd": {},
+								"extend": {},
+								"general": {},
+								"styles": {
+									"margin": "8px",
+									"flex": "1"
+								},
+								"local": {}
+							}
+						}
+					],
+					"cmds": {},
+					"name": "Div",
+					"alias": "",
+					"id": "C39",
+					"props": {
+						"antd": {},
+						"extend": {},
+						"general": {},
+						"styles": {
+							"flexDirection": "column",
+							"display": "flex",
+							"height": "100%"
+						},
+						"local": {}
+					}
+				}
+			],
+			"cmds": {},
+			"name": "质检规则页",
+			"alias": "",
+			"index": 1,
+			"id": "EFNCQH",
+			"props": {
+				"antd": {},
+				"extend": {},
+				"general": {},
+				"styles": {
+					"padding": "10px",
+					"height": "100%"
+				},
+				"local": {
+					"layoutType": "full"
+				}
+			}
+		},
+		"STARTY": {
+			"ctls": [
+				{
+					"ctls": [
+						{
+							"ctls": [
+								{
+									"ctls": [
+										{
+											"cmds": {
+												"click": {
+													"name": "click",
+													"items": [
+														{
+															"type": "script",
+															"exp": "",
+															"content": {
+																"resource": {},
+																"script": "c('c61').state(1)\n\nR.var.qa_obj = {\"code\":\"\" ,\"name\":\"\" , \"desc\":\"\"}\n\nlet id =await id6({\n  tableName: \"QA_Business\"  ,\n  fieldName: \"Business_id\"  \n})\n\nR.var.qa_obj.code = id\n\nR.var.title1 = '新建业务:' + id"
+															},
+															"desc": ""
+														}
+													]
+												}
+											},
+											"name": "Button",
+											"alias": "",
+											"id": "C7",
+											"props": {
+												"antd": {
+													"shape": "default",
+													"size": "large"
+												},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"width": "100%"
+												},
+												"local": {
+													"icon": "ant-design:plus-outlined",
+													"themeType": "text",
+													"label": "新增质检业务",
+													"colorType": "success"
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C5",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {
+											"border": "1px dashed #5fcf73",
+											"height": "40px"
+										},
+										"local": {}
+									}
+								},
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Divider",
+											"alias": "",
+											"id": "C8",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"margin": "5px"
+												},
+												"local": {}
+											}
+										},
+										{
+											"ctls": [
+												{
+													"ctls": [
+														{
+															"ctls": [
+																{
+																	"cmds": {
+																		"click": {
+																			"name": "click",
+																			"items": [
+																				{
+																					"type": "script",
+																					"exp": "",
+																					"content": {
+																						"resource": {},
+																						"script": "/**\n* 轻提示\n* @param content 提示内容\n* @param type 提示类型 默认success\n*/\nout(R.EVENT)\nnotify('点到了' + R.EVENT.ROW + '行！！',   'success')"
+																					},
+																					"desc": ""
+																				}
+																			]
+																		}
+																	},
+																	"name": "Button",
+																	"alias": "",
+																	"id": "C12",
+																	"props": {
+																		"antd": {
+																			"shape": "default",
+																			"size": "small"
+																		},
+																		"extend": {},
+																		"general": {},
+																		"styles": {
+																			"width": "30px"
+																		},
+																		"local": {
+																			"icon": "mdi:emoticon-poop-outline",
+																			"themeType": "text",
+																			"styles": {
+																				"color": "white"
+																			},
+																			"colorType": "default"
+																		}
+																	}
+																}
+															],
+															"cmds": {},
+															"name": "Div",
+															"alias": "",
+															"id": "C11",
+															"props": {
+																"antd": {},
+																"extend": {},
+																"general": {},
+																"styles": {
+																	"margin": "0 5px",
+																	"backgroundColor": "#cf93d9",
+																	"borderRadius": "50%",
+																	"alignItems": "center",
+																	"display": "flex",
+																	"width": "25px",
+																	"justifyContent": "center",
+																	"height": "25px"
+																},
+																"local": {}
+															}
+														},
+														{
+															"cmds": {},
+															"name": "Label",
+															"alias": "",
+															"id": "C13",
+															"props": {
+																"antd": {},
+																"extend": {},
+																"general": {
+																	"dataProp": "#business_name"
+																},
+																"styles": {
+																	"margin": "0 10px",
+																	"display": "inline-block"
+																},
+																"local": {
+																	"res": "文字说明1"
+																}
+															}
+														},
+														{
+															"ctls": [],
+															"cmds": {},
+															"name": "Div",
+															"alias": "",
+															"id": "C14",
+															"props": {
+																"antd": {},
+																"extend": {},
+																"general": {},
+																"styles": {
+																	"flex": "1",
+																	"height": "10px"
+																},
+																"local": {}
+															}
+														},
+														{
+															"cmds": {
+																"click": {
+																	"name": "click",
+																	"items": [
+																		{
+																			"type": "script",
+																			"exp": "",
+																			"content": {
+																				"resource": {},
+																				"script": "/**\n * 轻提示\n * @param content 提示内容\n * @param type 提示类型 默认success\n */\nout('当前行信息', R.EVENT);\nc('c72').state(1);\n\nR.var.item_obj = { businessid: '', code: '', name: '' , desc: '' , point: 10 ,flag:1 };\n\nlet id = await id6({\n  tableName: 'QA_ITEMS',\n  fieldName: 'item_id'\n});\n\nR.var.item_obj.code = id;\n\nR.var.title2 =  R.EVENT.ROWDATA.business_name;\n\nR.var.item_obj.business_name = R.EVENT.ROWDATA.business_name;\nR.var.item_obj.business_id = R.EVENT.ROWDATA.business_id;"
+																			},
+																			"desc": ""
+																		}
+																	]
+																}
+															},
+															"name": "Icon",
+															"alias": "",
+															"id": "C15",
+															"props": {
+																"antd": {
+																	"size": 20,
+																	"color": "#eb1d4e",
+																	"icon": "ant-design:plus-square-twotone"
+																},
+																"extend": {},
+																"general": {},
+																"styles": {
+																	"margin": "0 4px",
+																	"float": "right"
+																},
+																"local": {
+																	"clazzs": [
+																		"link-button"
+																	],
+																	"state": 0
+																}
+															}
+														},
+														{
+															"cmds": {
+																"click": {
+																	"name": "click",
+																	"items": [
+																		{
+																			"type": "script",
+																			"exp": "",
+																			"content": {
+																				"resource": {},
+																				"script": "/**\n* 轻提示\n* @param content 提示内容\n* @param type 提示类型 默认success\n*/\nout(R.EVENT)\nnotify('点到了' + R.EVENT.ROW + '行！！ 想要修改',   'success')"
+																			},
+																			"desc": ""
+																		}
+																	]
+																}
+															},
+															"name": "Icon",
+															"alias": "",
+															"id": "C16",
+															"props": {
+																"antd": {
+																	"size": 20,
+																	"color": "#eb1d4e",
+																	"icon": "mdi:square-edit-outline"
+																},
+																"extend": {},
+																"general": {},
+																"styles": {
+																	"margin": "0 4px",
+																	"float": "right"
+																},
+																"local": {
+																	"clazzs": [
+																		"link-button"
+																	],
+																	"state": 0
+																}
+															}
+														},
+														{
+															"cmds": {
+																"click": {
+																	"name": "click",
+																	"items": [
+																		{
+																			"type": "script",
+																			"exp": "",
+																			"content": {
+																				"resource": {},
+																				"script": "/**\n* 轻提示\n* @param content 提示内容\n* @param type 提示类型 默认success\n*/\nout(R.EVENT)\nnotify('点到了' + R.EVENT.ROW + '行！！ 想要修改',   'success')"
+																			},
+																			"desc": ""
+																		}
+																	]
+																}
+															},
+															"name": "Icon",
+															"alias": "",
+															"id": "C17",
+															"props": {
+																"antd": {
+																	"size": 20,
+																	"color": "#eb1d4e",
+																	"icon": "ant-design:delete-twotone"
+																},
+																"extend": {},
+																"general": {},
+																"styles": {
+																	"margin": "0 4px",
+																	"float": "right"
+																},
+																"local": {
+																	"clazzs": [
+																		"link-button"
+																	],
+																	"state": 0
+																}
+															}
+														}
+													],
+													"cmds": {
+														"hover": {
+															"name": "hover",
+															"items": [
+																{
+																	"type": "script",
+																	"exp": "",
+																	"content": {
+																		"resource": {},
+																		"script": "let  cid1 = 'c15-'+R.EVENT.ROW\nlet  cid2 = 'c16-'+R.EVENT.ROW\nlet  cid3 = 'c17-'+R.EVENT.ROW\nif(R.EVENT.hover)\n{\nc(cid1).state(1);\nc(cid2).state(1);\nc(cid3).state(1);\n}else\n{\nc(cid1).state(0);\nc(cid2).state(0);\nc(cid3).state(0);\n}"
+																	},
+																	"desc": ""
+																}
+															]
+														},
+														"click": {
+															"name": "click",
+															"items": [
+																{
+																	"type": "script",
+																	"exp": "",
+																	"content": {
+																		"resource": {},
+																		"script": "R.var.filters=R.EVENT.ROWDATA.CODE+100"
+																	},
+																	"desc": ""
+																}
+															]
+														}
+													},
+													"name": "Div",
+													"alias": "",
+													"id": "C10",
+													"props": {
+														"antd": {},
+														"extend": {},
+														"general": {},
+														"styles": {
+															"padding": "5px",
+															"margin": "0 0 5px 0",
+															"alignItems": "center",
+															"display": "flex",
+															"vAlign": "valign-middle"
+														},
+														"local": {}
+													}
+												}
+											],
+											"cmds": {},
+											"name": "Xitem",
+											"alias": "",
+											"id": "C9",
+											"props": {
+												"antd": {
+													"itemLayout": "vertical"
+												},
+												"extend": {},
+												"general": {
+													"dataProp": "var.qa_business"
+												},
+												"styles": {
+													"width": "100%",
+													"height": "auto"
+												},
+												"local": {
+													"lcmd": "select"
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C6",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {
+											"flex": "1"
+										},
+										"local": {}
+									}
+								}
+							],
+							"cmds": {},
+							"name": "Div",
+							"alias": "",
+							"id": "C1",
+							"props": {
+								"antd": {},
+								"extend": {},
+								"general": {},
+								"styles": {
+									"margin": "4px",
+									"backgroundColor": "#ffffff",
+									"flexDirection": "column",
+									"display": "flex",
+									"width": "280px"
+								},
+								"local": {}
+							}
+						},
+						{
+							"ctls": [
+								{
+									"cmds": {},
+									"name": "Table",
+									"alias": "",
+									"id": "C18",
+									"props": {
+										"antd": {
+											"size": "small",
+											"clickToRowSelect": true,
+											"inset": true,
+											"bordered": true,
+											"showIndexColumn": true,
+											"ellipsis": true
+										},
+										"extend": {},
+										"general": {},
+										"styles": {
+											"height": "100%"
+										},
+										"local": {
+											"preserveKeys": true,
+											"cells": [
+												{
+													"filterable": false,
+													"ref": "item_id",
+													"name": "质检代码",
+													"width": 100,
+													"sortable": false,
+													"align": "left",
+													"type": 0
+												},
+												{
+													"filterable": false,
+													"ref": "item_name",
+													"name": "描述",
+													"width": 200,
+													"sortable": false,
+													"align": "left",
+													"type": 0,
+													"wrap": true
+												},
+												{
+													"filterable": false,
+													"ref": "default_score",
+													"name": "分值",
+													"width": 100,
+													"sortable": false,
+													"align": "left",
+													"type": 0
+												},
+												{
+													"extend": {
+														"options": [
+															{
+																"label": "停用",
+																"type": 1,
+																"value": 0
+															},
+															{
+																"label": "启用",
+																"type": 1,
+																"value": 1
+															}
+														],
+														"type": 3
+													},
+													"filterable": false,
+													"ref": "is_effect",
+													"name": "是否启用",
+													"width": 100,
+													"sortable": false,
+													"align": "left",
+													"type": 11
+												},
+												{
+													"filterable": false,
+													"ref": "autoflag",
+													"name": "自动化",
+													"width": 100,
+													"sortable": false,
+													"align": "left",
+													"type": 7
+												},
+												{
+													"extend": {
+														"links": [
+															{
+																"lalel": "",
+																"icon": "ant-design:up-outlined",
+																"cmd": "",
+																"label": "上"
+															},
+															{
+																"icon": "ant-design:down-outlined",
+																"cmd": "",
+																"label": "下"
+															},
+															{
+																"icon": "ant-design:edit-twotone",
+																"cmd": "",
+																"label": "修改"
+															},
+															{
+																"icon": "ant-design:delete-twotone",
+																"cmd": "",
+																"label": "删除"
+															},
+															{
+																"icon": "mdi:arrow-decision-auto-outline",
+																"cmd": "rules",
+																"label": "智能化"
+															}
+														]
+													},
+													"filterable": false,
+													"ref": "",
+													"name": "操作",
+													"width": 200,
+													"sortable": false,
+													"align": "left",
+													"type": 10
+												}
+											],
+											"loadImmediate": true,
+											"dataSource": {
+												"options": "var.qa_items",
+												"type": 2
+											}
+										}
+									}
+								}
+							],
+							"cmds": {},
+							"name": "Div",
+							"alias": "",
+							"id": "C2",
+							"props": {
+								"antd": {},
+								"extend": {},
+								"general": {},
+								"styles": {
+									"margin": "4px",
+									"backgroundColor": "#ffffff",
+									"flex": "1"
+								},
+								"local": {}
+							}
+						},
+						{
+							"ctls": [
+								{
+									"cmds": {},
+									"name": "Embed",
+									"alias": "",
+									"id": "C38",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {
+											"height": "100%"
+										},
+										"local": {
+											"embType": "page",
+											"pageId": "EFNCQH"
+										}
+									}
+								}
+							],
+							"cmds": {},
+							"name": "Div",
+							"alias": "",
+							"id": "C3",
+							"props": {
+								"antd": {},
+								"extend": {},
+								"general": {},
+								"styles": {
+									"padding": "8px",
+									"margin": "4px",
+									"backgroundColor": "#ffffff",
+									"width": "640px"
+								},
+								"local": {
+									"state": 0
+								}
+							}
+						}
+					],
+					"cmds": {},
+					"name": "Div",
+					"alias": "",
+					"id": "C0",
+					"props": {
+						"antd": {},
+						"extend": {},
+						"general": {},
+						"styles": {
+							"padding": "8px",
+							"display": "flex",
+							"height": "100%"
+						},
+						"local": {}
+					}
+				},
+				{
+					"ctls": [
+						{
+							"ctls": [
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Label",
+											"alias": "",
+											"id": "C65",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {
+													"dataProp": "${R.var.qa_obj.code}"
+												},
+												"styles": {
+													"margin": "4px"
+												},
+												"local": {
+													"defaultSnippetsClass": "main",
+													"state": 0
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C63",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {},
+										"local": {}
+									}
+								},
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Label",
+											"alias": "",
+											"id": "C66",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {},
+												"local": {
+													"defaultSnippetsClass": "small2",
+													"res": "可以在业务类型下面加入质检项"
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C64",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {},
+										"local": {}
+									}
+								},
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Input",
+											"alias": "",
+											"id": "C68",
+											"props": {
+												"antd": {
+													"showCount": true,
+													"maxlength": 10,
+													"bordered": true,
+													"placeholder": "业务名称",
+													"type": "text"
+												},
+												"extend": {},
+												"general": {
+													"dataProp": "${R.var.qa_obj.name}"
+												},
+												"styles": {},
+												"local": {
+													"required": true
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C67",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {},
+										"local": {}
+									}
+								},
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Textarea",
+											"alias": "",
+											"id": "C71",
+											"props": {
+												"antd": {
+													"showCount": true,
+													"bordered": true,
+													"placeholder": "业务描述"
+												},
+												"extend": {},
+												"general": {
+													"dataProp": "${R.var.qa_obj.desc}"
+												},
+												"styles": {},
+												"local": {
+													"required": true
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C69",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {},
+										"local": {}
+									}
+								},
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Select",
+											"alias": "",
+											"id": "C80",
+											"props": {
+												"antd": {
+													"placeholder": "选择业务"
+												},
+												"extend": {},
+												"general": {
+													"dataProp": "${R.var.qa_obj.type}"
+												},
+												"styles": {},
+												"local": {
+													"dataSource": {
+														"options": [
+															{
+																"label": "录音",
+																"value": "1"
+															},
+															{
+																"label": "工单",
+																"value": "2"
+															},
+															{
+																"label": "网聊",
+																"value": "3"
+															},
+															{
+																"label": "其他",
+																"value": "4"
+															}
+														],
+														"type": 3
+													}
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C78",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {},
+										"local": {}
+									}
+								}
+							],
+							"cmds": {},
+							"name": "Div",
+							"alias": "",
+							"id": "C62",
+							"props": {
+								"antd": {},
+								"extend": {},
+								"general": {},
+								"styles": {
+									"border": "1px solid #dedede",
+									"padding": "16px",
+									"borderRadius": "4px",
+									"height": "100%"
+								},
+								"local": {
+									"validatable": true
+								}
+							}
+						}
+					],
+					"cmds": {},
+					"name": "Modal",
+					"alias": "",
+					"id": "C61",
+					"props": {
+						"antd": {
+							"maskClosable": true
+						},
+						"extend": {},
+						"general": {},
+						"styles": {
+							"width": "400px",
+							"height": "auto"
+						},
+						"local": {
+							"btns": [
+								{
+									"label": "取消",
+									"id": "cancel"
+								},
+								{
+									"label": "确定",
+									"id": "ok",
+									"cmd": "addbusi",
+									"colorType": "primary"
+								}
+							],
+							"title": "${var.title1}"
+						}
+					}
+				},
+				{
+					"ctls": [
+						{
+							"cmds": {},
+							"name": "Label",
+							"alias": "",
+							"id": "C73",
+							"props": {
+								"antd": {},
+								"extend": {},
+								"general": {
+									"dataProp": "${R.var.item_obj.businessid}"
+								},
+								"styles": {
+									"margin": "8px 0"
+								},
+								"local": {
+									"defaultSnippetsClass": "sub",
+									"res": "标签"
+								}
+							}
+						},
+						{
+							"cmds": {},
+							"name": "Input",
+							"alias": "",
+							"id": "C75",
+							"props": {
+								"antd": {
+									"bordered": true,
+									"placeholder": "考核项名称",
+									"type": "text"
+								},
+								"extend": {},
+								"general": {
+									"dataProp": "${R.var.item_obj.name}"
+								},
+								"styles": {},
+								"local": {}
+							}
+						},
+						{
+							"cmds": {},
+							"name": "Input",
+							"alias": "",
+							"id": "C76",
+							"props": {
+								"antd": {
+									"bordered": true,
+									"placeholder": "详细描述",
+									"type": "text"
+								},
+								"extend": {},
+								"general": {
+									"dataProp": "${R.var.item_obj.desc}"
+								},
+								"styles": {},
+								"local": {}
+							}
+						},
+						{
+							"cmds": {},
+							"name": "Radio",
+							"alias": "",
+							"id": "C105",
+							"props": {
+								"antd": {
+									"optionType": "button"
+								},
+								"extend": {},
+								"general": {
+									"dataProp": "${R.var.item_obj.type}"
+								},
+								"styles": {},
+								"local": {
+									"dataSource": {
+										"options": [
+											{
+												"label": "加分",
+												"type": 1,
+												"value": 1
+											},
+											{
+												"label": "扣分",
+												"type": 1,
+												"value": 2
+											},
+											{
+												"label": "致命",
+												"type": 1,
+												"value": 3
+											},
+											{
+												"label": "警告",
+												"type": 1,
+												"value": 4
+											}
+										],
+										"type": 3
+									}
+								}
+							}
+						},
+						{
+							"cmds": {},
+							"name": "Input",
+							"alias": "",
+							"id": "C74",
+							"props": {
+								"antd": {
+									"bordered": true,
+									"placeholder": "得分信息",
+									"type": "text"
+								},
+								"extend": {},
+								"general": {
+									"dataProp": "${R.var.item_obj.point}"
+								},
+								"styles": {},
+								"local": {
+									"hideDetail": false,
+									"extra": "项目分数"
+								}
+							}
+						},
+						{
+							"cmds": {},
+							"name": "Radio",
+							"alias": "",
+							"id": "C106",
+							"props": {
+								"antd": {
+									"optionType": "button"
+								},
+								"extend": {},
+								"general": {
+									"dataProp": "${R.var.item_obj.flag}"
+								},
+								"styles": {},
+								"local": {
+									"dataSource": {
+										"options": [
+											{
+												"label": "启用",
+												"type": 1,
+												"value": 1
+											},
+											{
+												"label": "停用",
+												"type": 1,
+												"value": 0
+											}
+										],
+										"type": 3
+									}
+								}
+							}
+						},
+						{
+							"cmds": {},
+							"name": "Radio",
+							"alias": "",
+							"id": "C81",
+							"props": {
+								"antd": {
+									"optionType": "button"
+								},
+								"extend": {},
+								"general": {
+									"dataProp": "${R.var.item_obj.no}"
+								},
+								"styles": {},
+								"local": {
+									"dataSource": {
+										"options": [
+											{
+												"label": "添加到前面",
+												"type": 1,
+												"value": 1
+											},
+											{
+												"label": "添加到后面",
+												"type": 1,
+												"value": 99
+											}
+										],
+										"type": 3
+									}
+								}
+							}
+						}
+					],
+					"cmds": {},
+					"name": "Modal",
+					"alias": "",
+					"id": "C72",
+					"props": {
+						"antd": {
+							"maskClosable": true
+						},
+						"extend": {},
+						"general": {},
+						"styles": {
+							"padding": "8px",
+							"width": "300px",
+							"height": "AUTO"
+						},
+						"local": {
+							"btns": [
+								{
+									"label": "取消",
+									"id": "cancel"
+								},
+								{
+									"label": "确定",
+									"id": "ok",
+									"cmd": "additems",
+									"colorType": "primary"
+								}
+							],
+							"title": "${var.title2}"
+						}
+					}
+				}
+			],
+			"cmds": {},
+			"name": "首页",
+			"alias": "",
+			"index": 0,
+			"id": "STARTY",
+			"props": {
+				"antd": {},
+				"extend": {},
+				"general": {},
+				"styles": {},
+				"local": {
+					"layoutType": "full",
+					"styles": {
+						"min-height": "100%"
+					}
+				}
+			}
+		}
+	},
+	"sqls": {
+		"23067250-74a7-4df2-9902-9e076783f740": "select item_id,item_name,default_score,serial_number,is_effect,comments,autoscorerule,autoscoretext,RULE_TEXT from QA_ITEMS\nwhere Business_id =#{var.business_id}",
+		"68439d88-6999-47e8-9b8d-b76d39d7b49d": "select business_id, business_name, business_desc, business_type, serial_number\nfrom QA_Business\norder by serial_number",
+		"42db0491-f1eb-4565-8936-18f3894a93eb": "select item_id,item_name,default_score,serial_number,is_effect,comments,autoscorerule,autoscoretext,RULE_TEXT,autoflag from QA_ITEMS\nwhere Business_id =#{var.business_id}",
+		"10b72838-0d2d-4b9b-9802-ec9436b628c0": "insert into QA_Business(business_id, business_name, business_desc, business_type, serial_number,created_by,created_time)\nvalues(#{ID},#{NAME},#{DESC},#{TYPE},#{NO},{C_BY},{C_NOW})",
+		"0fdd9752-2d21-403b-80b5-65e2218511da": "insert into QA_ITEMS(Business_id,Business_name,item_id,item_name,default_score,serial_number,is_effect,created_by,created_time,type)\n    values(#{BID},#{BNAME},#{ID},#{NAME},#{PONIT},#{NO},#{FLAG},{C_BY},{C_NOW},#{TYPE})"
+	},
+	"sqlPermissions": {}
+}

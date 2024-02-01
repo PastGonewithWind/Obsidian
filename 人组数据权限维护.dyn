@@ -1,0 +1,753 @@
+{
+	"createdBy": "000006",
+	"createdTime": "2022-11-24 11:51:39",
+	"modifiedBy": "000006",
+	"modifiedTime": "2022-12-01 15:30:16",
+	"id": "1595626169579065345",
+	"alias": "XD779B",
+	"name": "人组数据权限维护",
+	"type": 0,
+	"folderId": "1595690939904675841",
+	"index_": 0,
+	"content": {
+		"pages": {
+			"STARTY": {
+				"top": 80,
+				"left": 150,
+				"name": "首页"
+			}
+		},
+		"flows": [
+			{
+				"source": "BEGIN",
+				"target": "STARTY"
+			}
+		],
+		"cmds": {
+			"extend": {
+				"search.staff": {
+					"name": "查询员工",
+					"pid": "9873a161-d66c-4801-8945-20e528645ef0",
+					"id": "search.staff",
+					"items": [
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "R.SEARCH_STAFF=\"%\"+R.var.search_name+\"%\";\r\nR.SEARCH_ROLEGROUP=\"%\"+R.var.search_rolegroup+\"%\";\r\nlog(R.SEARCH_STAFF);\r\nlog(R.SEARCH_ROLEGROUP);\r\nclearDsl('SQL');"
+							},
+							"desc": ""
+						},
+						{
+							"type": "db",
+							"exp": "R.var.search_name",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [
+											"SEARCH_STAFF"
+										],
+										"method": "none",
+										"sql": "a4a23d56-efd3-4ce3-b0cd-65b5877b7a24"
+									}
+								},
+								"sub": "dsl",
+								"dslNs": "SQL",
+								"dslKey": "1"
+							},
+							"desc": ""
+						},
+						{
+							"type": "db",
+							"exp": "R.var.search_rolegroup",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [
+											"SEARCH_ROLEGROUP"
+										],
+										"method": "none",
+										"sql": "7866baf2-75f8-4b59-a54b-3bfa675b5b13"
+									}
+								},
+								"sub": "dsl",
+								"dslNs": "SQL",
+								"dslKey": "1"
+							},
+							"desc": ""
+						},
+						{
+							"type": "db",
+							"exp": "",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [],
+										"method": "query",
+										"sql": "b893069a-5fc0-4d1b-8c3d-796a81ede1b0"
+									}
+								},
+								"binds": [
+									{
+										"t": "var.list_staff",
+										"i": -1
+									}
+								],
+								"sub": "statement",
+								"dslNs": "SQL"
+							},
+							"desc": "查询员工"
+						},
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "showDsl('SQL');"
+							},
+							"desc": ""
+						}
+					]
+				},
+				"search.rolegroup": {
+					"name": "查询部门",
+					"pid": "9873a161-d66c-4801-8945-20e528645ef0",
+					"id": "search.rolegroup",
+					"items": [
+						{
+							"type": "db",
+							"exp": "",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [
+											"var.search_staff_id"
+										],
+										"method": "query",
+										"sql": "c0e53fd9-a697-449b-be9e-39115dad118a"
+									}
+								},
+								"binds": [
+									{
+										"t": "var.tree_node"
+									}
+								],
+								"sub": "statement",
+								"dslNs": "SQL"
+							},
+							"desc": "查询员工"
+						},
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "log('获取管理组权限...');\r\nR.var.tree_node={\"checked\":[\"SYSTEM\"],\"halfChecked\":[]}\r\n//R.var.tree_node=\"SYSTEM\"\r\nlog(R.var.tree_node);"
+							},
+							"desc": ""
+						}
+					]
+				}
+			},
+			"internal": {},
+			"folder": {
+				"9873a161-d66c-4801-8945-20e528645ef0": {
+					"name": "根目录"
+				}
+			}
+		},
+		"increment": 16,
+		"language": "zh_CN",
+		"styles": {
+			"height": "100%"
+		},
+		"properties": {
+			"var": {
+				"list_staff": {
+					"t": 4
+				},
+				"tree_node": {
+					"t": 3
+				},
+				"search_staff_id": {
+					"t": 3
+				},
+				"search_name": {
+					"t": 3
+				},
+				"list_rolegroup": {
+					"t": 4
+				},
+				"list_dataright": {
+					"t": 4
+				},
+				"search_rolegroup": {
+					"t": 3
+				}
+			}
+		}
+	},
+	"i18n": {},
+	"pages": {
+		"STARTY": {
+			"ctls": [
+				{
+					"ctls": [
+						{
+							"ctls": [
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Label",
+											"alias": "",
+											"id": "C14",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"fontSize": "20px",
+													"lineHeight": "28px",
+													"float": "left",
+													"fontWeight": 400
+												},
+												"local": {
+													"res": "员工列表",
+													"defaultLabelStyles": "sub"
+												}
+											}
+										},
+										{
+											"cmds": {
+												"click": {
+													"name": "click",
+													"items": [
+														{
+															"type": "script",
+															"exp": "",
+															"content": {
+																"resource": {},
+																"script": "cmd('search.staff');"
+															},
+															"desc": ""
+														}
+													]
+												}
+											},
+											"name": "Button",
+											"alias": "",
+											"id": "C9",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"margin": "0 0 0 10px",
+													"width": "",
+													"float": "right"
+												},
+												"local": {
+													"icon": "",
+													"label": "重置",
+													"colorType": "default"
+												}
+											}
+										},
+										{
+											"cmds": {
+												"click": {
+													"name": "click",
+													"items": [
+														{
+															"type": "script",
+															"exp": "",
+															"content": {
+																"resource": {},
+																"script": "cmd('search.staff');"
+															},
+															"desc": ""
+														}
+													]
+												}
+											},
+											"name": "Button",
+											"alias": "",
+											"id": "C13",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"margin": "0 0 0 15px",
+													"width": "",
+													"float": "right"
+												},
+												"local": {
+													"icon": "",
+													"label": "查询",
+													"colorType": "primary"
+												}
+											}
+										},
+										{
+											"cmds": {
+												"change": {
+													"name": "change",
+													"items": [
+														{
+															"type": "script",
+															"exp": "",
+															"content": {
+																"resource": {},
+																"script": "cmd('search.staff');"
+															},
+															"desc": ""
+														}
+													]
+												},
+												"enter": {
+													"name": "enter",
+													"items": [
+														{
+															"type": "script",
+															"exp": "",
+															"content": {
+																"resource": {},
+																"script": "cmd('search.staff');"
+															},
+															"desc": ""
+														}
+													]
+												}
+											},
+											"name": "Input",
+											"alias": "",
+											"id": "C8",
+											"props": {
+												"antd": {
+													"size": "default",
+													"placeholder": "模糊查找登录名/员工姓名",
+													"bordered": true,
+													"type": "text"
+												},
+												"extend": {},
+												"general": {
+													"dataProp": "var.search_name"
+												},
+												"styles": {
+													"margin": "0 0 0 15px",
+													"width": "250px",
+													"float": "right"
+												},
+												"local": {
+													"hideDetail": true
+												}
+											}
+										},
+										{
+											"cmds": {
+												"change": {
+													"name": "change",
+													"items": [
+														{
+															"type": "script",
+															"exp": "",
+															"content": {
+																"resource": {},
+																"script": "cmd('search.staff');"
+															},
+															"desc": ""
+														}
+													]
+												},
+												"enter": {
+													"name": "enter",
+													"items": [
+														{
+															"type": "script",
+															"exp": "",
+															"content": {
+																"resource": {},
+																"script": "cmd('search.staff');"
+															},
+															"desc": ""
+														}
+													]
+												}
+											},
+											"name": "Input",
+											"alias": "",
+											"id": "C15",
+											"props": {
+												"antd": {
+													"size": "default",
+													"placeholder": "模糊查找部门名称",
+													"bordered": true,
+													"type": "text"
+												},
+												"extend": {},
+												"general": {
+													"dataProp": "var.search_rolegroup"
+												},
+												"styles": {
+													"margin": "0 0 0 15px",
+													"width": "250px",
+													"float": "right"
+												},
+												"local": {
+													"hideDetail": true
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C4",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {
+											"padding": "10px",
+											"backgroundColor": "#ffffff"
+										},
+										"local": {}
+									}
+								},
+								{
+									"ctls": [
+										{
+											"cmds": {
+												"click": {
+													"name": "click",
+													"items": [
+														{
+															"type": "script",
+															"exp": "",
+															"content": {
+																"resource": {},
+																"script": "log(R.EVENT);\r\nR.var.search_staff_id=R.EVENT.ROWDATA.STAFF_ID\r\ncmd('search.rolegroup');"
+															},
+															"desc": ""
+														}
+													]
+												}
+											},
+											"name": "Table",
+											"alias": "",
+											"id": "C7",
+											"props": {
+												"antd": {
+													"size": "small",
+													"clickToRowSelect": true,
+													"inset": false,
+													"bordered": true,
+													"showIndexColumn": true,
+													"ellipsis": true
+												},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"height": "100%"
+												},
+												"local": {
+													"pageCmd": "search.staff",
+													"pagination": {
+														"pageSizeOptions": [
+															"10",
+															"30",
+															"50",
+															"100"
+														],
+														"hideOnSinglePage": true,
+														"pageSize": 10,
+														"showLessItems": true,
+														"simple": true,
+														"showQuickJumper": true,
+														"showSizeChanger": true,
+														"current": 1,
+														"total": 158,
+														"size": "small",
+														"responsive": true,
+														"showTotal": true,
+														"disabled": false,
+														"position": [
+															"bottomRight"
+														]
+													},
+													"cells": [
+														{
+															"filterable": false,
+															"ref": "LOGIN_NAME",
+															"name": "登陆名",
+															"width": 100,
+															"sortable": false,
+															"align": "center",
+															"type": 0
+														},
+														{
+															"filterable": false,
+															"ref": "STAFF_NAME",
+															"name": "员工姓名",
+															"width": 100,
+															"sortable": false,
+															"align": "center",
+															"type": 0
+														},
+														{
+															"filterable": false,
+															"ref": "STAFF_ID",
+															"name": "员工ID",
+															"width": 100,
+															"sortable": false,
+															"align": "center",
+															"type": 0
+														},
+														{
+															"filterable": false,
+															"ref": "AGENT_ID",
+															"name": "员工工号",
+															"width": 100,
+															"sortable": false,
+															"align": "center",
+															"type": 0
+														},
+														{
+															"filterable": false,
+															"ref": "ROLEGROUP_DESCRIPTION",
+															"name": "默认部门",
+															"width": 100,
+															"sortable": false,
+															"align": "center",
+															"type": 0
+														}
+													],
+													"loadImmediate": true,
+													"dataSource": {
+														"options": "var.list_staff",
+														"type": 2
+													}
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C5",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {
+											"padding": "",
+											"margin": "",
+											"backgroundColor": "#ffffff",
+											"flex": "1"
+										},
+										"local": {}
+									}
+								}
+							],
+							"cmds": {},
+							"name": "Div",
+							"alias": "",
+							"id": "C1",
+							"props": {
+								"antd": {},
+								"extend": {},
+								"general": {},
+								"styles": {
+									"padding": "",
+									"flex": "1",
+									"flexDirection": "column",
+									"display": "flex"
+								},
+								"local": {}
+							}
+						},
+						{
+							"ctls": [
+								{
+									"ctls": [
+										{
+											"cmds": {},
+											"name": "Label",
+											"alias": "",
+											"id": "C11",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"display": "inline-block",
+													"fontSize": "20px",
+													"lineHeight": "28px",
+													"fontWeight": 400
+												},
+												"local": {
+													"res": "部门列表",
+													"defaultLabelStyles": "sub"
+												}
+											}
+										},
+										{
+											"cmds": {},
+											"name": "Button",
+											"alias": "",
+											"id": "C12",
+											"props": {
+												"antd": {},
+												"extend": {},
+												"general": {},
+												"styles": {
+													"float": "right"
+												},
+												"local": {
+													"label": "保存",
+													"colorType": "primary"
+												}
+											}
+										}
+									],
+									"cmds": {},
+									"name": "Div",
+									"alias": "",
+									"id": "C10",
+									"props": {
+										"antd": {},
+										"extend": {},
+										"general": {},
+										"styles": {
+											"padding": "10px",
+											"backgroundColor": "#ffffff"
+										},
+										"local": {}
+									}
+								},
+								{
+									"cmds": {
+										"change": {
+											"name": "change",
+											"items": [
+												{
+													"type": "script",
+													"exp": "",
+													"content": {
+														"resource": {},
+														"script": "log(R.EVENT);\r\nlog(R.var.tree_node);\r\nlog(JSON.stringify(R.var.tree_node));"
+													},
+													"desc": ""
+												}
+											]
+										}
+									},
+									"name": "Tree",
+									"alias": "",
+									"id": "C3",
+									"props": {
+										"antd": {
+											"search": true,
+											"draggable": false,
+											"checkable": true,
+											"selectable": false,
+											"defaultExpandAll": true,
+											"checkStrictly": true
+										},
+										"extend": {},
+										"general": {
+											"labelProp": "",
+											"nodeProp": "",
+											"dataProp": "var.tree_node"
+										},
+										"styles": {
+											"flex": "1"
+										},
+										"local": {
+											"collapseAction": true,
+											"directory": false,
+											"dataSource": {
+												"options": {
+													"binds": [],
+													"fields": {
+														"name": "ROLEGROUP_DESCRIPTION",
+														"pid": "PARENT_ROLEGROUP_ID",
+														"id": "ROLEGROUP_ID"
+													},
+													"sql": "51fe0303-735c-4619-8f86-909a55442bbb"
+												},
+												"type": 0
+											}
+										}
+									}
+								}
+							],
+							"cmds": {},
+							"name": "Div",
+							"alias": "",
+							"id": "C2",
+							"props": {
+								"antd": {},
+								"extend": {},
+								"general": {},
+								"styles": {
+									"margin": "0 0 0 10px",
+									"flexDirection": "column",
+									"display": "flex",
+									"width": "400px"
+								},
+								"local": {}
+							}
+						}
+					],
+					"cmds": {},
+					"name": "Div",
+					"alias": "",
+					"id": "C0",
+					"props": {
+						"antd": {},
+						"extend": {},
+						"general": {},
+						"styles": {
+							"flexDirection": "row",
+							"display": "flex",
+							"width": "100%",
+							"height": "100%"
+						},
+						"local": {}
+					}
+				}
+			],
+			"cmds": {},
+			"name": "首页",
+			"alias": "",
+			"id": "STARTY",
+			"props": {
+				"antd": {},
+				"extend": {},
+				"general": {},
+				"styles": {
+					"padding": "10px",
+					"width": "100%",
+					"height": "100%"
+				},
+				"local": {
+					"styles": {
+						"min-height": "100%"
+					}
+				}
+			}
+		}
+	},
+	"sqls": {
+		"7866baf2-75f8-4b59-a54b-3bfa675b5b13": "and r.rolegroup_description like #{SEARCH_ROLEGROUP}",
+		"c0e53fd9-a697-449b-be9e-39115dad118a": "SELECT\r\n\tROLEGROUP_ID\r\nFROM\r\n\tROLEGROUP R\r\n\tLEFT JOIN DATARIGHT_MAP DM ON R.ROLEGROUP_ID=DM.MANAGE_TARGET \r\nWHERE 1=1 AND DM.MANAGER_ID=#{var.search_staff_id}",
+		"a4a23d56-efd3-4ce3-b0cd-65b5877b7a24": "and (\r\n    upper(s.staff_name) like upper(#{SEARCH_STAFF})\r\n    or upper(s.login_name) like upper(#{SEARCH_STAFF})\r\n)",
+		"b893069a-5fc0-4d1b-8c3d-796a81ede1b0": "SELECT \r\n  S.LOGIN_NAME,S.STAFF_NAME,S.STAFF_ID,S.AGENT_ID,R.ROLEGROUP_DESCRIPTION \r\nFROM STAFF S \r\nLEFT JOIN ROLEGROUP R ON S.DEFAULT_ROLEGROUP=R.ROLEGROUP_ID \r\nWHERE S.WORK_STATUS='ONLINE'\r\n{DSL_1}",
+		"51fe0303-735c-4619-8f86-909a55442bbb": "SELECT\r\n\tROLEGROUP_ID,\r\n\tROLEGROUP_DESCRIPTION,\r\n\tPARENT_ROLEGROUP_ID\t\r\nFROM\r\n\tROLEGROUP R\r\nWHERE IS_ENABLE=1"
+	},
+	"sqlPermissions": {}
+}

@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "工作/项目/晓策/脚本.md",
+                "file": "工作/控件/命令.md",
                 "mode": "source",
                 "source": false
               }
@@ -95,7 +95,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "工作/项目/晓策/脚本.md",
+                "file": "工作/控件/命令.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +123,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "工作/项目/晓策/脚本.md"
+                "file": "工作/控件/命令.md"
               }
             }
           },
@@ -133,7 +133,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "工作/项目/晓策/脚本.md",
+                "file": "工作/控件/命令.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -173,12 +173,18 @@
   },
   "active": "c323bcafb88f917e",
   "lastOpenFiles": [
-    "工作/控件/命令.md",
-    "工作/项目/晓策/环境信息.md",
-    "工作/项目/晓策/脚本.md",
-    "工作/项目/晓策/BUG.md",
-    "工作/Mysql.md",
     "工作/项目/三星/网聊上线.md",
+    "工作/项目/晓策/脚本.md",
+    "工作/项目/晓策/环境信息.md",
+    "工作/控件/命令.md",
+    "工作/项目/晓策/页面备份.md",
+    "质检模版维护.dyn",
+    "质检项目.dyn",
+    "账号管理-new.dyncs",
+    "工作/项目/晓策/BUG.md",
+    "人组数据权限维护.dyn",
+    "附件/人组数据权限维护.dyn",
+    "工作/Mysql.md",
     "工作/es.md",
     "工作/Ngs notes.md",
     "计划.md",
@@ -203,13 +209,9 @@
     "工作/项目/晓策",
     "工作/项目/三星",
     "工作/项目",
-    "工作",
     "计划/12.md",
     "未命名 1.md",
     "未命名 2.md",
-    "2023-12-22.md",
-    "未命名.canvas",
-    "会议纪要.md",
-    "计划"
+    "未命名.canvas"
   ]
 }
