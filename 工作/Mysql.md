@@ -27,8 +27,32 @@ select unix_timestamp(now())
 select timestampdiff(second,[start],[end])
 ```
  
- 
-
+ 查所有周的起止日期
+ ```mysql
+ insert into weeklydata (id,week_dates)  
+select  
+t.datai,t.ranger  
+from (  
+SELECT  
+datai,  
+concat(date_format(DATE_FORMAT(DATE_ADD('2023-01-01', INTERVAL week_number * 7 DAY), '%Y-%m-%d') - INTERVAL weekday('2023-01-01') DAY,'%Y%m%d'),'-',  
+date_format((DATE_FORMAT(DATE_ADD('2023-01-01', INTERVAL week_number * 7 DAY), '%Y-%m-%d')) + INTERVAL 6 DAY - INTERVAL weekday('2023-01-01') DAY,'%Y%m%d')) as ranger,  
+DATE_FORMAT(DATE_ADD('2023-01-01', INTERVAL week_number * 7 DAY), '%Y-%m-%d') - INTERVAL weekday('2023-01-01') DAY AS start_date  
+FROM  
+(  
+with recursive c(week_number,datai) as (select 0,concat(date_format(DATE_ADD('2023-01-01',interval 0 * 7 DAY) - INTERVAL weekday('2023-01-01') DAY + INTERVAL 6 DAY,'%Y'),week(DATE_ADD('2023-01-01',interval 0 * 7 DAY) - INTERVAL weekday('2023-01-01') DAY + INTERVAL 6 DAY))  
+from dual  
+union all  
+select week_number + 1,concat(date_format(DATE_ADD('2023-01-01',interval (week_number+1) * 7 DAY) - INTERVAL weekday('2023-01-01') DAY + INTERVAL 6 DAY,'%Y'),week(DATE_ADD('2023-01-01',interval (week_number+1) * 7 DAY) - INTERVAL weekday('2023-01-01') DAY + INTERVAL 6 DAY))  
+from c  
+where week_number < 350)  
+select *  
+from c) AS weeks where  
+DATE_FORMAT(DATE_ADD('2023-01-01', INTERVAL week_number * 7 DAY), '%Y-%m-%d') <= LAST_DAY('2028-12-31')  
+ORDER BY  
+start_date  
+) t
+```
 
 
 
