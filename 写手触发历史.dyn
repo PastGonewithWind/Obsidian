@@ -1,0 +1,980 @@
+{
+	"createdBy": "6NCEZT",
+	"createdTime": "2024-07-02 16:56:38",
+	"modifiedBy": "6NCEZT",
+	"modifiedTime": "2025-01-09 16:13:06",
+	"id": "2e00f1c8-6369-4e34-bbe4-9c10007430c7",
+	"alias": "BH3FRQ",
+	"name": "写手触发历史",
+	"type": 0,
+	"folderId": "288842b7-cdc3-4239-b3c7-f1430986cfb4",
+	"index_": 7,
+	"content": {
+		"pages": {
+			"STARTY": {
+				"name": "首页"
+			}
+		},
+		"functions": {},
+		"cmds": {
+			"extend": {
+				"get.detail": {
+					"name": "",
+					"pid": "b586f88d-04b9-4a91-95ca-0fbb14e08f46",
+					"id": "get.detail",
+					"items": [
+						{
+							"type": "db",
+							"exp": "0",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [],
+										"method": "query",
+										"sql": "be41a845-d4fe-44f7-8576-fb897ed84043"
+									}
+								},
+								"binds": [
+									{
+										"t": "MAP"
+									}
+								],
+								"sub": "statement"
+							},
+							"desc": ""
+						},
+						{
+							"type": "script",
+							"exp": "0",
+							"content": {
+								"resource": {},
+								"script": "out(R.EVENT.ROWDATA.PAGE_INFO);\nout(R.EVENT.ROWDATA);\nconst event_type = R.EVENT.ROWDATA.EVENT_TYPE;\nconst map = new Map([\n\n]);\nlet page_info = JSON.parse(R.EVENT.ROWDATA.PAGE_INFO);\nout(page_info)\nR.var.skip_list = [];\nif (event_type == 1) {\n  if (page_info.length == -1) {\n    openDyn(R.MAP.filter(item =>item.RANK_TYPE == page_info[0].rank_type)[0].PAGE_ID, page_info[0].rank_type, page_info[0]);\n  } else {\n    for (item of JSON.parse(R.EVENT.ROWDATA.PAGE_INFO)) {\n      R.var.skip_list.push({\n        PAGEID: R.MAP.filter(subitem =>subitem.RANK_TYPE == item.rank_type)[0].PAGE_ID,\n        PAGENAME: item.rank_type,\n        PAGEINFO: item,\n        MSG: item.fund_name,\n        TYPE1: item.rank_type1,\n        TYPE2: item.rank_type2,\n        TYPE3: item.rank_type3\n      });\n      //openDyn(map.get(item.rank_type), item.rank_type, item);\n    }\n    c('c7').toggle();\n  }\n} else if (event_type == 2) {\n  if (page_info.length == 1) {\n    openDyn(R.MAP.filter(item =>item.RANK_TYPE=='大V信息')[0].PAGE_ID, page_info[0].USER_NAME, page_info[0]);\n  }else{\n    for (item of JSON.parse(R.EVENT.ROWDATA.PAGE_INFO)) {\n      R.var.skip_list.push({\n        PAGEID: R.MAP.filter(subitem => subitem.RANK_TYPE == '大V信息')[0].PAGE_ID,\n        PAGENAME: item.rank_type,\n        PAGEINFO: item,\n        USER_NAME: item.USER_NAME,\n        SOURCE: item.SOURCE,\n        TITLE: item.TITLE,\n      });\n      c('c9').toggle();\n      //openDyn(map.get(item.rank_type), item.rank_type, item);\n    }\n\n  }\n  \n} else if (event_type == 3) {\n  //openDyn(map.get('大V信息'), page_info.USER_NAME, page_info);\n} else if (event_type == 4) {\n  if (page_info.length == 1) {\n    openDyn(map.get('天天热榜'), '天天热榜', page_info[0]);\n  } else {\n    for (item of JSON.parse(R.EVENT.ROWDATA.PAGE_INFO)) {\n      out(item);\n      openDyn(map.get('天天热榜'), '天天热榜', item);\n      break;\n    }\n  }\n}\n"
+							},
+							"desc": ""
+						},
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "let data = JSON.parse(R.EVENT.ROWDATA.PAGE_INFO)[0];\nout(data);\nif (!isNotEmpty(data)) {\n  message('信息获取失败');\n  stop();\n}\nif (isNotEmpty(data.post_id) && isNotEmpty(data.source)) {\n  // openDyn('5XEAVT','消息详情',R.EVENT.ROWDATA)\n  openDyn('5XEAVT', '消息详情', {\n    postId: data.post_id,\n    source: data.source,\n    table: 'fund_post_data',\n    dynType: 'center'\n  });\n}else{\n  message('信息缺失')\n  stop()\n}\n"
+							},
+							"desc": ""
+						}
+					]
+				},
+				"get.fix.his": {
+					"name": "获取触发历史",
+					"pid": "b586f88d-04b9-4a91-95ca-0fbb14e08f46",
+					"id": "get.fix.his",
+					"items": [
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "clearDsl('FIXHIS')"
+							},
+							"desc": ""
+						},
+						{
+							"type": "db",
+							"exp": "R.var.s_task_id",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [
+											"var.s_task_id"
+										],
+										"method": "none",
+										"sql": "43a6de45-829e-4159-a20d-5fde9991fbaa"
+									}
+								},
+								"sub": "dsl",
+								"dslNs": "FIXHIS",
+								"dslKey": "1"
+							},
+							"desc": ""
+						},
+						{
+							"type": "db",
+							"exp": "R.var.edit_platform",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [
+											"var.edit_platform"
+										],
+										"method": "none",
+										"sql": "c2095f8d-935e-4b81-a54e-5cdf32ee0f60"
+									}
+								},
+								"sub": "dsl",
+								"dslNs": "FIXHIS",
+								"dslKey": "1"
+							},
+							"desc": ""
+						},
+						{
+							"type": "db",
+							"exp": "R.var.s_startdate",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [
+											"var.s_startdate",
+											"var.s_enddate"
+										],
+										"method": "none",
+										"sql": "a66f2e7c-7b33-403e-9720-bd7d9e79ae41"
+									}
+								},
+								"sub": "dsl",
+								"dslNs": "FIXHIS",
+								"dslKey": "1"
+							},
+							"desc": ""
+						},
+						{
+							"type": "db",
+							"exp": "",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [],
+										"method": "query",
+										"sql": "f17fb892-d746-4c4d-847d-6f39ab7b0759"
+									}
+								},
+								"binds": [
+									{
+										"t": "var.fix_list"
+									}
+								],
+								"sub": "statement",
+								"dslNs": "FIXHIS"
+							},
+							"desc": ""
+						}
+					]
+				},
+				"jump": {
+					"name": "",
+					"pid": "b586f88d-04b9-4a91-95ca-0fbb14e08f46",
+					"id": "jump",
+					"items": [
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "const rowdata = R.EVENT.ROWDATA\r\n//let res = JSON.parse(rowdata)\r\nout(rowdata)\r\nR.RANK_TYPE = rowdata.PAGEINFO.rank_type\r\nR.TYPE1 = rowdata.PAGEINFO.rank_type1\r\nR.TYPE2 = rowdata.PAGEINFO.rank_type2\r\nR.TYPE3 = rowdata.PAGEINFO.rank_type3\r\nR.PAGENAME = rowdata.PAGENAME\r\nR.PAGEINFO = rowdata.PAGEINFO\r\n\r\n//openDyn(rowdata.PAGEID, rowdata.PAGENAME, rowdata.PAGEINFO);"
+							},
+							"desc": ""
+						},
+						{
+							"type": "db",
+							"exp": "",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [
+											"RANK_TYPE"
+										],
+										"method": "query",
+										"sql": "af808b8e-bc5b-426c-9d1a-fd0ba74b0271"
+									}
+								},
+								"binds": [
+									{
+										"t": "RES"
+									}
+								],
+								"sub": "statement"
+							},
+							"desc": ""
+						},
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "let res = R.RES[0];\r\nout('res',res)\r\nR.COLUMNNAME = res.COLUMNNAME\r\nR.REALTYPE = null;\r\n\r\nif (res.COLUMNNAME == 'type') {\r\n  R.REALTYPE = R.TYPE1;\r\n} else if (res.COLUMNNAME == 'type2') {\r\n  R.REALTYPE = R.TYPE2;\r\n} else if (res.COLUMNNAME == 'type3') {\r\n  R.REALTYPE = R.TYPE3;\r\n}\r\nout('REALTYPE',R.REALTYPE)\r\nout('COLUMNNAME',R.COLUMNNAME)"
+							},
+							"desc": ""
+						},
+						{
+							"type": "db",
+							"exp": "R.REALTYPE",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [
+											"REALTYPE"
+										],
+										"method": "none",
+										"sql": "99f8d9b5-c223-445b-9299-f1e1243cb600"
+									}
+								},
+								"sub": "dsl",
+								"dslNs": "SSIVES",
+								"dslKey": "1"
+							},
+							"desc": ""
+						},
+						{
+							"type": "db",
+							"exp": "",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [
+											"RANK_TYPE"
+										],
+										"method": "query",
+										"sql": "934c7f72-e720-462f-af91-5e5d3c7e6d22"
+									}
+								},
+								"binds": [
+									{
+										"t": "RES"
+									}
+								],
+								"sub": "statement",
+								"dslNs": "SSIVES"
+							},
+							"desc": ""
+						},
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "R.PAGEID = R.RES[0].PAGE_ID\r\nopenDyn(R.PAGEID, R.PAGENAME, R.PAGEINFO);"
+							},
+							"desc": ""
+						}
+					]
+				}
+			},
+			"internal": {
+				"load": {
+					"name": "加载时（唯一）",
+					"id": "load",
+					"items": [
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "R.var.edit_platform = R.EVENT.source;\n\nR.var.s_enddate = DateUtils.parseDate(dayjs().add(1, 'day').format('YYYY-MM-DD'), 'YYYY-MM-DD');\nR.var.s_startdate= DateUtils.parseDate(dayjs().add(0, 'day').format('YYYY-MM-DD'), 'YYYY-MM-DD');\n\nEvent.register('show.fix.his', function (item) {\n  R.var.s_task_id = item.TASK_ID;\n  //R.var.fix_list = R.var.fix_list_source.filter((sitem) => sitem.B == item.TASK_ID);\n  c('c0').execPage()\n});\n//\n// R.var.fix_list_source = [\n//   {\n//     A: 'FH202407021802000002',\n//     B: 'JH202407011841560033',\n//     C: '上榜热搜',\n//     D: '您关注的南方兴利定开债券上榜热搜',\n//     E: '2024-07-02 13:32:02',\n//     F: 'ives',\n//     G: '短信'\n//   },\n//   {\n//     A: 'FH202407021802000002',\n//     B: 'JH202407011841560033',\n//     C: '首次上榜',\n//     D: '您关注的广发添财30首次上榜',\n//     E: '2024-07-03 09:42:52',\n//     F: 'ives',\n//     G: '短信'\n//   },\n//   {\n//     A: 'FH202407021802000002',\n//     B: 'JH202407011841560033',\n//     C: '榜时间超48小时',\n//     D: '您关注的广发添财30上榜时间超48小时',\n//     E: '2024-07-04 09:12:32',\n//     F: 'ives',\n//     G: '短信'\n//   },\n//   {\n//     A: 'FH202407021802000003',\n//     B: 'JH202407011909330046',\n//     C: '评论量平均超过阈值',\n//     D: '您关注的同泰恒利纯债C7日评论量达到77',\n//     E: '2024-07-02 17:22:02',\n//     F: 'ives',\n//     G: '短信'\n//   },\n//   {\n//     A: 'FH202407021802000004',\n//     B: 'JH202407011910500047',\n//     C: '日均负向评论量超',\n//     D: '您关注的恒生前海恒源泓利债券A日均负向评论量超过100',\n//     E: '2024-07-02 13:32:02',\n//     F: 'ives',\n//     G: 'APP'\n//   }\n// ];\n\n\nstoreMethod('TRANSCODE',function(a){\n  let map = new Map([['1', '短信'],['2', '钉钉'],['3', '飞书'],['4', '邮件'],['5','企业微信']])\n  let list = a.TASK_TYPE.split(',')\n  let res= ''\n  for(var i =0 ;i<list.length;i++){\n    if(i!=0){\n      res+=','\n    }\n    res+=map.get(list[i])\n    \n  }\n  return res\n})"
+							},
+							"desc": ""
+						},
+						{
+							"type": "script",
+							"exp": "",
+							"content": {
+								"resource": {},
+								"script": "clearDsl('MYSEARCH')\r\nout(R.var.edit_platform)"
+							},
+							"desc": ""
+						},
+						{
+							"type": "db",
+							"exp": "R.var.edit_platform",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [
+											"var.edit_platform"
+										],
+										"method": "none",
+										"sql": "ec56387e-c5a3-443b-8c46-748b57e36772"
+									},
+									"sqlserver": {
+										"binds": [
+											"var.edit_platform"
+										],
+										"method": "none",
+										"sql": "6e1e28fe-2a58-48d8-8187-9c88e6def15c"
+									}
+								},
+								"sub": "dsl",
+								"dslNs": "MYSEARCH",
+								"dslKey": "1"
+							},
+							"desc": ""
+						},
+						{
+							"type": "db",
+							"exp": "",
+							"content": {
+								"sqls": {
+									"default": {
+										"binds": [],
+										"method": "query",
+										"sql": "a79606f3-2201-4d51-9ef2-6e215c4712fb"
+									}
+								},
+								"binds": [
+									{
+										"t": "var.task_list"
+									}
+								],
+								"sub": "statement",
+								"dslNs": "MYSEARCH"
+							},
+							"desc": ""
+						}
+					]
+				}
+			},
+			"folder": {
+				"b586f88d-04b9-4a91-95ca-0fbb14e08f46": {
+					"name": "根目录"
+				}
+			}
+		},
+		"increment": 12,
+		"language": "zh_CN",
+		"styles": {
+			"height": "100%"
+		},
+		"properties": {
+			"var": {
+				"fix_list": {
+					"t": 4
+				},
+				"s_task_id": {
+					"t": 3
+				},
+				"s_enddate": {
+					"t": 2
+				},
+				"edit_platform": {
+					"t": 3
+				},
+				"skip_list": {
+					"t": 4
+				},
+				"task_list": {
+					"t": 4
+				},
+				"s_startdate": {
+					"t": 2
+				},
+				"fix_list_source": {
+					"t": 4
+				}
+			}
+		}
+	},
+	"i18n": {},
+	"pages": {
+		"STARTY": {
+			"ctls": [
+				{
+					"ctls": [
+						{
+							"ctls": [
+								{
+									"cmds": {},
+									"name": "Select",
+									"alias": "",
+									"id": "C3",
+									"props": {
+										"antd": {
+											"allowClear": true
+										},
+										"extend": {},
+										"general": {
+											"dataProp": "var.s_task_id"
+										},
+										"styles": {
+											"display": "inline-block",
+											"width": "300px"
+										},
+										"local": {
+											"hideDetail": true,
+											"labelWidth": "7em",
+											"label": "触发事件",
+											"dataSource": {
+												"options": {
+													"property": "var.task_list",
+													"fields": {
+														"label": "TASK_NAME",
+														"value": "ZO_GUID"
+													}
+												},
+												"type": 2
+											}
+										}
+									}
+								},
+								{
+									"cmds": {},
+									"name": "DateRangePicker",
+									"alias": "",
+									"id": "C5",
+									"props": {
+										"antd": {
+											"format": "YYYY-MM-DD",
+											"bordered": true,
+											"allowClear": true
+										},
+										"extend": {},
+										"general": {
+											"startProp": "var.s_startdate",
+											"endProp": "var.s_enddate"
+										},
+										"styles": {
+											"margin": "0 0 0 10px",
+											"display": "inline-block",
+											"width": "450px"
+										},
+										"local": {
+											"hideDetail": true,
+											"label": "时间范围"
+										}
+									}
+								},
+								{
+									"cmds": {
+										"click": {
+											"name": "click",
+											"items": [
+												{
+													"type": "script",
+													"exp": "",
+													"content": {
+														"resource": {},
+														"script": "// if (R.var.s_task_id) {\n//   R.var.fix_list = R.var.fix_list_source.filter((sitem) => sitem.B == R.var.s_task_id);\n// }else{\n//   R.var.fix_list = R.var.fix_list_source\n// }\nc('c0').execPage()"
+													},
+													"desc": ""
+												}
+											]
+										}
+									},
+									"name": "Button",
+									"alias": "",
+									"id": "C6",
+									"props": {
+										"antd": {
+											"shape": "default"
+										},
+										"extend": {},
+										"general": {},
+										"styles": {
+											"float": "right"
+										},
+										"local": {
+											"label": "刷新",
+											"colorType": "primary"
+										}
+									}
+								}
+							],
+							"cmds": {},
+							"name": "Div",
+							"alias": "",
+							"id": "C2",
+							"props": {
+								"antd": {},
+								"extend": {},
+								"general": {},
+								"styles": {
+									"padding": "10px",
+									"backgroundColor": "#ffffff",
+									"borderRadius": "9px"
+								},
+								"local": {}
+							}
+						},
+						{
+							"cmds": {},
+							"name": "Table",
+							"alias": "",
+							"id": "C0",
+							"props": {
+								"antd": {
+									"size": "middle",
+									"clickToRowSelect": true,
+									"inset": true,
+									"showHeader": true,
+									"bordered": true,
+									"showIndexColumn": true,
+									"ellipsis": true
+								},
+								"extend": {},
+								"general": {},
+								"styles": {
+									"margin": "10px 0 0 0 ",
+									"flex": "1",
+									"height": "0px"
+								},
+								"local": {
+									"pageCmd": "get.fix.his",
+									"preserveKeys": true,
+									"cells": [
+										{
+											"filterable": false,
+											"ref": "LIST_ID",
+											"name": "触发历史ID",
+											"width": 0,
+											"id": "2nlupcykwrzc8m0dzuqlns8uv",
+											"sortable": false,
+											"align": "left",
+											"type": 0
+										},
+										{
+											"extend": {
+												"options": {
+													"binds": [],
+													"dbPool": "",
+													"fields": {
+														"label": "TASK_NAME",
+														"value": "TASK_ID"
+													},
+													"key": "3de4d489-76c1-4616-9690-ce758ce439ac",
+													"sql": "select TASK_ID,TASK_NAME from sqyy_msg_send_task\r\n"
+												},
+												"type": 0
+											},
+											"filterable": false,
+											"ref": "TASK_NAME",
+											"name": "触发事件",
+											"width": "150px",
+											"id": "3dsobau9nxjngnbxw4ltnn7vx",
+											"sortable": false,
+											"align": "left",
+											"type": 0
+										},
+										{
+											"extend": {
+												"options": [
+													{
+														"label": "榜单",
+														"type": 1,
+														"value": 1
+													},
+													{
+														"label": "大V",
+														"type": 1,
+														"value": 2
+													},
+													{
+														"label": "讨论区",
+														"type": 1,
+														"value": 3
+													},
+													{
+														"label": "热搜/热议话题",
+														"type": 1,
+														"value": 4
+													},
+													{
+														"label": "舆情/水军",
+														"type": 1,
+														"value": 99
+													}
+												],
+												"type": 3
+											},
+											"filterable": false,
+											"ref": "COMPANY",
+											"name": "机构",
+											"width": 0,
+											"id": "0uki2gmdbax7mxzft06zqligw",
+											"sortable": false,
+											"align": "left",
+											"type": 0
+										},
+										{
+											"extend": {
+												"options": {
+													"binds": [],
+													"dbPool": "",
+													"fields": {
+														"label": "SOURCE_NAME",
+														"value": "SOURCE_CODE"
+													},
+													"sql": "c8350638-a5af-4c7f-8621-9fbf5f8c1e0c"
+												},
+												"type": 0
+											},
+											"filterable": false,
+											"ref": "PLATFORM",
+											"name": "渠道",
+											"width": 0,
+											"id": "9oy06m8x8jcdc39jaj0jx6qo3",
+											"sortable": false,
+											"align": "left",
+											"type": 11
+										},
+										{
+											"filterable": false,
+											"ref": "SEND_CONTENT",
+											"name": "触发提醒内容",
+											"width": "",
+											"id": "d0vt9hh80gw4oz458k6geezzq",
+											"sortable": false,
+											"align": "left",
+											"type": 0
+										},
+										{
+											"filterable": false,
+											"ref": "CREATED_TIME",
+											"name": "发生时间",
+											"width": "200px",
+											"id": "9vluvntfc8xqxi0k2p5dtp978",
+											"sortable": false,
+											"align": "left",
+											"type": 0
+										},
+										{
+											"extend": {
+												"links": [
+													{
+														"icon": "mdi:more",
+														"label": "详情",
+														"cmd": "get.detail",
+														"title": ""
+													}
+												]
+											},
+											"filterable": false,
+											"ref": "",
+											"name": "查看详情",
+											"width": "100px",
+											"id": "dfizpax7gssos5k41otmvpzsx",
+											"sortable": false,
+											"align": "left",
+											"type": 10
+										}
+									],
+									"pagination": {
+										"pageSizeOptions": [
+											"10",
+											"30",
+											"50",
+											"100"
+										],
+										"hideOnSinglePage": false,
+										"pageSize": 30,
+										"showLessItems": false,
+										"simple": false,
+										"showQuickJumper": false,
+										"showSizeChanger": false,
+										"current": 1,
+										"total": 100,
+										"size": "small",
+										"responsive": false,
+										"showTotal": true,
+										"disabled": false,
+										"position": [
+											"bottomRight"
+										]
+									},
+									"loadImmediate": false,
+									"dataSource": {
+										"options": "var.fix_list",
+										"type": 2
+									}
+								}
+							}
+						}
+					],
+					"cmds": {},
+					"name": "Div",
+					"alias": "",
+					"id": "C1",
+					"props": {
+						"antd": {},
+						"extend": {},
+						"general": {},
+						"styles": {
+							"flexDirection": "column",
+							"display": "flex",
+							"height": "100%"
+						},
+						"local": {}
+					}
+				},
+				{
+					"ctls": [
+						{
+							"cmds": {},
+							"name": "Table",
+							"alias": "",
+							"id": "C8",
+							"props": {
+								"antd": {
+									"size": "small",
+									"clickToRowSelect": true,
+									"inset": true,
+									"showHeader": true,
+									"bordered": true,
+									"showIndexColumn": true,
+									"ellipsis": true
+								},
+								"extend": {},
+								"general": {},
+								"styles": {
+									"height": "100%"
+								},
+								"local": {
+									"preserveKeys": true,
+									"cells": [
+										{
+											"filterable": false,
+											"ref": "MSG",
+											"name": "命中信息",
+											"width": "",
+											"id": "3nka11rh2i95k6feds1hr7ym1",
+											"sortable": false,
+											"align": "left",
+											"type": 0
+										},
+										{
+											"filterable": false,
+											"ref": "TYPE1",
+											"name": "节点一",
+											"width": "",
+											"id": "86nrxr23ak5o6eu5541o3iwk3",
+											"sortable": false,
+											"align": "left",
+											"type": 0
+										},
+										{
+											"filterable": false,
+											"ref": "TYPE2",
+											"name": "节点二",
+											"width": "",
+											"id": "bcffp95yl6gk4ne36duxgkyi3",
+											"sortable": false,
+											"align": "left",
+											"type": 0
+										},
+										{
+											"filterable": false,
+											"ref": "TYPE3",
+											"name": "节点三",
+											"width": "",
+											"id": "8pg4yh7nuet4qtrtbklbe12n9",
+											"sortable": false,
+											"align": "left",
+											"type": 0
+										},
+										{
+											"extend": {
+												"links": [
+													{
+														"icon": "ant-design:caret-right-outlined",
+														"label": "跳转",
+														"cmd": "jump",
+														"title": ""
+													}
+												]
+											},
+											"filterable": false,
+											"ref": "",
+											"name": "跳转",
+											"width": "100px",
+											"id": "1xclzsr49oug7fp6i28pj9e5z",
+											"sortable": false,
+											"align": "left",
+											"type": 10
+										}
+									],
+									"loadImmediate": true,
+									"dataSource": {
+										"options": "var.skip_list",
+										"type": 2
+									}
+								}
+							}
+						}
+					],
+					"cmds": {},
+					"name": "Modal",
+					"alias": "",
+					"id": "C7",
+					"props": {
+						"antd": {
+							"maskClosable": true
+						},
+						"extend": {},
+						"general": {},
+						"styles": {
+							"width": "800px",
+							"height": "200px"
+						},
+						"local": {
+							"btns": [
+								{
+									"label": "取消",
+									"id": "cancel"
+								},
+								{
+									"label": "确定",
+									"id": "ok",
+									"colorType": "primary"
+								}
+							]
+						}
+					}
+				},
+				{
+					"ctls": [
+						{
+							"cmds": {},
+							"name": "Table",
+							"alias": "",
+							"id": "C10",
+							"props": {
+								"antd": {
+									"size": "small",
+									"clickToRowSelect": true,
+									"inset": true,
+									"showHeader": true,
+									"bordered": true,
+									"showIndexColumn": true,
+									"ellipsis": true
+								},
+								"extend": {},
+								"general": {},
+								"styles": {
+									"height": "100%"
+								},
+								"local": {
+									"preserveKeys": true,
+									"cells": [
+										{
+											"filterable": false,
+											"ref": "USER_NAME",
+											"name": "命中信息",
+											"width": "",
+											"id": "3nka11rh2i95k6feds1hr7ym1",
+											"sortable": false,
+											"align": "left",
+											"type": 0
+										},
+										{
+											"filterable": false,
+											"ref": "SOURCE",
+											"name": "渠道",
+											"width": "",
+											"id": "86nrxr23ak5o6eu5541o3iwk3",
+											"sortable": false,
+											"align": "left",
+											"type": 0
+										},
+										{
+											"filterable": false,
+											"ref": "TITLE",
+											"name": "文章标题",
+											"width": "",
+											"id": "bcffp95yl6gk4ne36duxgkyi3",
+											"sortable": false,
+											"align": "left",
+											"type": 0
+										},
+										{
+											"extend": {
+												"links": [
+													{
+														"icon": "ant-design:caret-right-outlined",
+														"label": "跳转",
+														"cmd": "jump",
+														"title": ""
+													}
+												]
+											},
+											"filterable": false,
+											"ref": "",
+											"name": "跳转",
+											"width": "100px",
+											"id": "1xclzsr49oug7fp6i28pj9e5z",
+											"sortable": false,
+											"align": "left",
+											"type": 10
+										}
+									],
+									"loadImmediate": true,
+									"dataSource": {
+										"options": "var.skip_list",
+										"type": 2
+									}
+								}
+							}
+						}
+					],
+					"cmds": {},
+					"name": "Modal",
+					"alias": "",
+					"id": "C9",
+					"props": {
+						"antd": {
+							"maskClosable": true
+						},
+						"extend": {},
+						"general": {},
+						"styles": {
+							"width": "800px",
+							"height": "200px"
+						},
+						"local": {
+							"btns": [
+								{
+									"label": "取消",
+									"id": "cancel"
+								},
+								{
+									"label": "确定",
+									"id": "ok",
+									"colorType": "primary"
+								}
+							]
+						}
+					}
+				}
+			],
+			"cmds": {},
+			"name": "首页",
+			"alias": "",
+			"index": 0,
+			"id": "STARTY",
+			"props": {
+				"antd": {},
+				"extend": {},
+				"general": {},
+				"styles": {
+					"padding": "8px",
+					"height": "100%"
+				},
+				"local": {
+					"layoutType": "full",
+					"styles": {
+						"min-height": "100%"
+					}
+				}
+			}
+		}
+	},
+	"sqls": {
+		"be41a845-d4fe-44f7-8576-fb897ed84043": "select RANK_TYPE,PAGE_ID from sqyy_ranking_list\r\nUNION\r\nselect '大V信息','BQN3AS' from dual",
+		"43a6de45-829e-4159-a20d-5fde9991fbaa": "and LIST_ID = #{var.s_task_id}",
+		"a79606f3-2201-4d51-9ef2-6e215c4712fb": "select ZO_GUID,TASK_NAME from sqyy_public_opinion_monitor where 1=1 {DSL_1}",
+		"a66f2e7c-7b33-403e-9720-bd7d9e79ae41": "and s.CREATED_TIME between #{var.s_startdate} and  #{var.s_enddate}",
+		"99f8d9b5-c223-445b-9299-f1e1243cb600": "and type = #{REALTYPE}",
+		"c8350638-a5af-4c7f-8621-9fbf5f8c1e0c": "select SOURCE_CODE,SOURCE_NAME from c_source\r\n",
+		"c2095f8d-935e-4b81-a54e-5cdf32ee0f60": "and m.platform = #{var.edit_platform}",
+		"934c7f72-e720-462f-af91-5e5d3c7e6d22": "select PAGE_ID from sqyy_ranking_list where rank_type = #{RANK_TYPE}\r\n{DSL_1}",
+		"ec56387e-c5a3-443b-8c46-748b57e36772": "and PLATFORM = #{var.edit_platform}",
+		"6e1e28fe-2a58-48d8-8187-9c88e6def15c": "and PLATFORM = #{var.edit_platform}",
+		"af808b8e-bc5b-426c-9d1a-fd0ba74b0271": "select COLUMNNAME from sqyy_ranking_list where rank_type = #{RANK_TYPE}",
+		"f17fb892-d746-4c4d-847d-6f39ab7b0759": "select RECORD_ID,LIST_ID,m.PLATFORM,m.TASK_NAME,SEND_CONTENT,s.CREATED_TIME,SEND_STATUS,s.SEND_TIME,case when t.TASK_TYPE is null then m.channel else t.TASK_TYPE end as \"TASK_TYPE\",case when EVENT_TYPE is null then 99 else EVENT_TYPE end as \"EVENT_TYPE\",PAGE_INFO,m.COMPANY from sqyy_msg_send_detail s\r\nleft join sqyy_msg_send_task t on s.LIST_ID = t.TASK_ID\r\nleft join sqyy_public_opinion_monitor m on m.zo_guid = s.list_id\r\nwhere 1=1 and type = '舆情' {DSL_1} order by created_time desc"
+	},
+	"sqlPermissions": {}
+}
